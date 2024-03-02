@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BattleArena from './components/BattleArena';
+import './App.css';
 
 const App = () => {
   const [teamInput, setTeamInput] = useState('{"player": ["charizard", "mewtwo", "pikachu"], "ai": ["rattata", "raticate", "spearow"]}');

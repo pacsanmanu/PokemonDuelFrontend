@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import PokemonDetails from './PokemonDetails'; // Asegúrate de que este componente esté correctamente implementado
-import TeamDisplay from './TeamDisplay'; // Asegúrate de que este componente esté correctamente implementado
+import PokemonDetails from './PokemonDetails';
+import TeamDisplay from './TeamDisplay';
+import './BattleArena.css';
 
 const BattleArena = ({ combatData }) => {
   const [combatState, setCombatState] = useState({
@@ -73,20 +74,26 @@ const BattleArena = ({ combatData }) => {
   };
 
   return (
-    <div>
-      {combatState.userStatus && (
-        <PokemonDetails
-          role="user"
-          pokemon={combatState.userStatus}
-          onAttack={handleAttack}
-        />
-      )}
-      {combatState.aiStatus && (
-        <PokemonDetails
-          role="ai"
-          pokemon={combatState.aiStatus}
-        />
-      )}
+    <div className="battle-arena">
+      <div className="arena-container">
+        <div className="pokemon-container">
+          {combatState.userStatus && (
+            <PokemonDetails
+              role="user"
+              pokemon={combatState.userStatus}
+              onAttack={handleAttack}
+            />
+          )}
+        </div>
+        <div className="pokemon-container">
+          {combatState.aiStatus && (
+            <PokemonDetails
+              role="ai"
+              pokemon={combatState.aiStatus}
+            />
+          )}
+        </div>
+      </div>
       <TeamDisplay
         team={combatState.userTeam}
         onChangePokemon={handleChangePokemon}

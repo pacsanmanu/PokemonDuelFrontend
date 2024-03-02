@@ -1,9 +1,14 @@
+import './TeamDisplay.css';
+
 const TeamDisplay = ({ team, onChangePokemon }) => {
   console.log(team);
   return (
-    <div>
-      {team.map(pokemon => (
-        <button key={pokemon.name} onClick={() => onChangePokemon(pokemon.name)}>
+    <div className="team-display">
+      {team.map((pokemon, index) => (
+        <button
+          key={index}
+          onClick={() => onChangePokemon(pokemon.name)}
+        >
           {pokemon.name}
         </button>
       ))}
