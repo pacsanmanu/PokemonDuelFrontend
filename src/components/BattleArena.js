@@ -64,11 +64,11 @@ const BattleArena = ({ combatData }) => {
 
   const updateCombatState = (data) => {
     setCombatState({
-      combatId: data.combatId,
-      userStatus: data.message.userStatus,
-      aiStatus: data.message.aiStatus,
-      userTeam: data.message.userTeam,
-      aiTeam: data.message.aiTeam,
+      combatId: data.result.combatId,
+      userStatus: data.result.userStatus,
+      aiStatus: data.result.aiStatus,
+      userTeam: data.result.userTeam,
+      aiTeam: data.result.aiTeam,
     });
   };
 
