@@ -3,7 +3,11 @@ import './PokemonDetails.css';
 const PokemonDetails = ({ role, pokemon, onAttack }) => {
   return (
     <div className="pokemon-details">
-      <img src={`${process.env.PUBLIC_URL}/images/sprites/${pokemon.pokedexId}.gif`} alt={pokemon.name} />
+      <img
+        className={role === 'user' ? 'user-pokemon' : 'ai-pokemon'}
+        src={`${process.env.PUBLIC_URL}/images/sprites/${pokemon.pokedexId}.gif`}
+        alt={pokemon.name}
+      />
       <h2>{pokemon.name}</h2>
       <p>HP: {pokemon.stats.life}</p>
       {role === 'user' && pokemon.moves.map((move, index) => (
