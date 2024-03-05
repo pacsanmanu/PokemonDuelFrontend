@@ -14,9 +14,12 @@
 }
 
 .pokemon-details img {
-  height: 150px;
-	width: 150px; /* Ajuste el tamaño según sea necesario */
+  max-height: 150px;
+  width: auto; 
+  height: auto;
+  object-fit: contain;
 }
+
 
 .pokemon-details h2 {
   margin: 1.2em 0;
