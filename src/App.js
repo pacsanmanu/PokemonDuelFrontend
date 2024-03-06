@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import BattleArena from './components/BattleArena';
+import HomePage from './components/HomePage';
 import './App.css';
 
 const App = () => {
-  const [teamInput, setTeamInput] = useState('{"player": ["charizard", "mewtwo", "pikachu"], "ai": ["rattata", "raticate", "spearow"]}');
   const [combatData, setCombatData] = useState(null);
 
-  const handleStartCombat = async () => {
+  const handleStartCombat = async (teamInput) => {
     try {
       const response = await fetch('http://localhost:3000/combat/start', {
         method: 'POST',
@@ -24,21 +25,12 @@ const App = () => {
   };
 
   return (
-    <div>
-      {!combatData ? (
-        <>
-          <textarea
-            value={teamInput}
-            onChange={(e) => setTeamInput(e.target.value)}
-            rows="5"
-            style={{ width: '100%', marginBottom: '10px' }}
-          />
-          <button onClick={handleStartCombat}>Start Combat</button>
-        </>
-      ) : (
-        <BattleArena combatData={combatData} />
-      )}
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage onCombatStart={handleStartCombat} />} />
+        <Route path="/battle" element={<BattleArena combatData={combatData} />} />
+      </Routes>
+    </Router>
   );
 };
 

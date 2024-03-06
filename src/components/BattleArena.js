@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Corregido para usar useNavigate
 import PokemonDetails from './PokemonDetails';
 import TeamDisplay from './TeamDisplay';
 import CombatStatusDisplay from './CombatStatusDisplay';
+import WinnerDisplay from './WinnerDisplay';
 import './BattleArena.css';
 
 const BattleArena = ({ combatData }) => {
+  const [winner, setWinner] = useState(null);
   const [combatState, setCombatState] = useState({
     combatId: null,
     userStatus: null,
@@ -12,23 +15,25 @@ const BattleArena = ({ combatData }) => {
     userTeam: [],
     aiTeam: []
   });
-
   const [combatLog, setCombatLog] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Establecer el estado inicial con los datos pasados desde App
-    if (combatData) {
+    console.log(combatData);
+    if (combatData && combatData.result) {
       setCombatState({
-        combatId: combatData.combatId,
-        userStatus: combatData.playerPokemons[0], // Asumiendo que el primer Pokémon es el activo
-        aiStatus: combatData.aiPokemons[0], // Asumiendo que el primer Pokémon es el activo
-        userTeam: combatData.playerPokemons,
-        aiTeam: combatData.aiPokemons
+        combatId: combatData.result.combatId,
+        userStatus: combatData.result.userStatus,
+        aiStatus: combatData.result.aiStatus,
+        userTeam: combatData.result.userTeam,
+        aiTeam: combatData.result.aiTeam
       });
+      if(combatData.result.winner){
+        setWinner(combatData.result.winner);
+      }
     }
-  }, [combatData]); // Dependencia de combatData para que se ejecute el efecto cuando cambie
+  }, [combatData]);
 
-  // Función para manejar el ataque del Pokémon del usuario
   const handleAttack = async (moveIndex) => {
     try {
       const response = await fetch('http://localhost:3000/combat/attack', {
@@ -40,7 +45,6 @@ const BattleArena = ({ combatData }) => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      // Asumiendo que la respuesta del backend tiene la misma estructura que la inicial
       updateCombatState(data);
       setCombatLog(data.result.log);
     } catch (error) {
@@ -81,6 +85,10 @@ const BattleArena = ({ combatData }) => {
     });
   };
 
+  const onCombatEnd = () => {
+    navigate('/');
+  };
+
   return (
     <div className="battle-arena">
       <div className="arena-container">
@@ -106,8 +114,14 @@ const BattleArena = ({ combatData }) => {
         team={combatState.userTeam}
         onChangePokemon={handleChangePokemon}
       />
-      {/* Integra CombatStatusDisplay aquí */}
       <CombatStatusDisplay combatLog={combatLog} />
+      {winner && (
+        <WinnerDisplay
+          winner={winner}
+          combatId={combatState.combatId}
+          onCombatEnd={onCombatEnd}
+        />
+      )}
     </div>
 );
 };
