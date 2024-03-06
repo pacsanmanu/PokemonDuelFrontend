@@ -45,15 +45,17 @@ const PokemonDetails = ({ role, pokemon, onAttack }) => {
       />
       <h2>{pokemon.name}</h2>
       <p>HP: {pokemon.stats.life}</p>
-      {role === 'user' && pokemon.moves.map((move, index) => (
-        <button
+      <div className="pokemon-moves-container">
+        {role === 'user' && pokemon.moves.map((move, index) => (
+          <button
           key={index}
           onClick={() => onAttack(index)}
           className={`pokemon-move-button type-${move.type.toLowerCase()}`}
-        >
-          {move.name}
-        </button>
-      ))}
+          >
+            {move.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

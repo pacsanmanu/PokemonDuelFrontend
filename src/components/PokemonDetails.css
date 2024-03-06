@@ -1,12 +1,16 @@
 .pokemon-details {
 	min-height: 320px;
-  background-color: #FFFFFF;
-  border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: box-shadow 0.3s ease-in-out;
+	background-color: #FFFFFF;
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
+	padding: 20px;
+	margin: 10px;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	transition: box-shadow 0.3s ease-in-out;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 .pokemon-details:hover {
@@ -52,7 +56,13 @@
 .type-steel { background-color: #B7B7CE; color: #1C1C1C; }
 .type-fairy { background-color: #D685AD; color: #272727; }
 
-/* Estilos comunes para los botones de movimiento */
+.pokemon-move-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si no caben */
+  justify-content: center; /* Centra los botones en el contenedor si hay espacio adicional */
+  gap: 10px; /* Espacio entre los botones */
+}
+
 .pokemon-move-button {
   padding: 10px;
   margin: 5px;
