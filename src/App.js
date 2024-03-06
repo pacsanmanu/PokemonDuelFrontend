@@ -5,7 +5,7 @@ import HomePage from './components/HomePage';
 import './App.css';
 
 const App = () => {
-  const [combatData, setCombatData] = useState(null);
+  const [combatData] = useState(null);
 
   const handleStartCombat = async (teamInput) => {
     try {
@@ -18,9 +18,10 @@ const App = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setCombatData(data);
+      return data;
     } catch (error) {
       console.error('Failed to start combat:', error);
+      return null;
     }
   };
 

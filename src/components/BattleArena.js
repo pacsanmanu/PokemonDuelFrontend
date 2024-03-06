@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Corregido para usar useNavigate
+import { useLocation, useNavigate } from 'react-router-dom'; // Importa useLocation
 import PokemonDetails from './PokemonDetails';
 import TeamDisplay from './TeamDisplay';
 import CombatStatusDisplay from './CombatStatusDisplay';
 import WinnerDisplay from './WinnerDisplay';
 import './BattleArena.css';
 
-const BattleArena = ({ combatData }) => {
+const BattleArena = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const combatData = location.state ? location.state.combatData : null;
+
   const [winner, setWinner] = useState(null);
   const [combatState, setCombatState] = useState({
     combatId: null,
@@ -16,10 +20,8 @@ const BattleArena = ({ combatData }) => {
     aiTeam: []
   });
   const [combatLog, setCombatLog] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(combatData);
     if (combatData && combatData.result) {
       setCombatState({
         combatId: combatData.result.combatId,
@@ -28,7 +30,7 @@ const BattleArena = ({ combatData }) => {
         userTeam: combatData.result.userTeam,
         aiTeam: combatData.result.aiTeam
       });
-      if(combatData.result.winner){
+      if (combatData.result.winner) {
         setWinner(combatData.result.winner);
       }
     }
@@ -89,6 +91,9 @@ const BattleArena = ({ combatData }) => {
     navigate('/');
   };
 
+  const dataIsReady = combatState.userTeam && combatState.userTeam.length > 0;
+  console.log(dataIsReady);
+
   return (
     <div className="battle-arena">
       <div className="arena-container">
@@ -123,7 +128,7 @@ const BattleArena = ({ combatData }) => {
         />
       )}
     </div>
-);
+  );
 };
 
 export default BattleArena;

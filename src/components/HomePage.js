@@ -5,11 +5,10 @@ const HomePage = ({ onCombatStart }) => {
   const [teamInput, setTeamInput] = useState('{"player": ["charizard", "mewtwo", "pikachu"], "ai": ["rattata", "raticate", "spearow"]}');
 	const navigate = useNavigate();
 
-  const handleStartClick = async () => {
-    await onCombatStart(teamInput);
-    navigate('/battle');
-  };
-
+	const handleStartClick = async () => {
+		const data = await onCombatStart(teamInput);
+		navigate('/battle', { state: { combatData: data } });
+	};
 
   return (
     <>
