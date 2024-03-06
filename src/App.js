@@ -4,7 +4,7 @@ import './App.css';
 
 const App = () => {
   const [teamInput, setTeamInput] = useState('{"player": ["charizard", "mewtwo", "pikachu"], "ai": ["rattata", "raticate", "spearow"]}');
-  const [combatData, setCombatData] = useState(null); // Se almacenarán aquí los datos del combate
+  const [combatData, setCombatData] = useState(null);
 
   const handleStartCombat = async () => {
     try {
@@ -17,7 +17,7 @@ const App = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setCombatData(data); // Almacenar los datos del combate para pasárselos a BattleArena
+      setCombatData(data);
     } catch (error) {
       console.error('Failed to start combat:', error);
     }
@@ -36,7 +36,7 @@ const App = () => {
           <button onClick={handleStartCombat}>Start Combat</button>
         </>
       ) : (
-        <BattleArena combatData={combatData} /> // Pasar los datos del combate como prop a BattleArena
+        <BattleArena combatData={combatData} />
       )}
     </div>
   );
