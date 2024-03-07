@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useCombat } from '../CombatContext';
 import PokemonDetails from '../PokemonDetails/PokemonDetails';
 import TeamDisplay from '../TeamDisplay/TeamDisplay';
 import CombatStatusDisplay from '../CombatStatusDisplay/CombatStatusDisplay';
+import WinnerDisplay from '../WinnerDisplay/WinnerDisplay';
 import './BattleArena.css';
 
 const BattleArena = () => {
-  const { combatData, setCombatData } = useCombat();
-  const navigate = useNavigate();
+  const { combatData } = useCombat();
   const [combatState, setCombatState] = useState({
     combatId: null,
     userStatus: null,
     aiStatus: null,
     userTeam: [],
-    aiTeam: []
+    aiTeam: [],
+    winner: null
   });
   const [combatLog, setCombatLog] = useState([]);
 
   useEffect(() => {
     if (combatData) {
-      // Actualiza este estado inicial basado en la estructura de tus datos
       setCombatState({
         combatId: combatData.combatId,
-        userStatus: combatData.playerPokemons[0], // Asumiendo que el primer Pokémon es el activo
+        userStatus: combatData.playerPokemons[0],
         aiStatus: combatData.aiPokemons[0],
         userTeam: combatData.playerPokemons,
         aiTeam: combatData.aiPokemons
@@ -49,7 +48,9 @@ const BattleArena = () => {
         ...prevState,
         userStatus: data.result.userStatus,
         aiStatus: data.result.aiStatus,
+        winner: data.result.winner
       }));
+      
       setCombatLog(data.result.log);
     } catch (error) {
       console.error('Failed to execute attack:', error);
@@ -77,45 +78,46 @@ const BattleArena = () => {
       setCombatState(prevState => ({
         ...prevState,
         userStatus: data.result.userStatus,
-      }));
+        aiStatus: data.result.aiStatus,
+        winner: data.result.winner
+      }));      
       setCombatLog(data.result.log);
     } catch (error) {
       console.error('Failed to change Pokémon:', error);
     }
   };
 
-  // Función para manejar el fin del combate y posiblemente reiniciar los datos
-  const handleEndCombat = () => {
-    setCombatData(null); // Limpia los datos del combate del contexto global
-    navigate('/'); // Navega de vuelta a la HomePage
-  };
-
   return (
     <div className="battle-arena">
-      <div className="arena-container">
-        {combatState.userStatus && (
-          <PokemonDetails
-            role="user"
-            pokemon={combatState.userStatus}
-            onAttack={handleAttack}
+      {combatState.winner ? (
+        <WinnerDisplay winner={combatState.winner} />
+      ) : (
+        <>
+          <div className="arena-container">
+            {combatState.userStatus && (
+              <PokemonDetails
+                role="user"
+                pokemon={combatState.userStatus}
+                onAttack={handleAttack}
+              />
+            )}
+            {combatState.aiStatus && (
+              <PokemonDetails
+                role="ai"
+                pokemon={combatState.aiStatus}
+              />
+            )}
+          </div>
+          <TeamDisplay
+            team={combatState.userTeam}
+            onChangePokemon={handleChangePokemon}
           />
-        )}
-        {combatState.aiStatus && (
-          <PokemonDetails
-            role="ai"
-            pokemon={combatState.aiStatus}
-          />
-        )}
-      </div>
-      <TeamDisplay
-        team={combatState.userTeam}
-        onChangePokemon={handleChangePokemon}
-      />
-      <CombatStatusDisplay combatLog={combatLog} />
-      {/* Considera agregar un botón o mecanismo para manejar el fin del combate */}
-      <button onClick={handleEndCombat}>End Combat</button>
+          <CombatStatusDisplay combatLog={combatLog} />
+        </>
+      )}
     </div>
   );
 };
+
 
 export default BattleArena;
