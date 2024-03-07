@@ -7,30 +7,25 @@ const PokemonDetails = ({ role, pokemon, onAttack }) => {
     const img = event.target;
     const naturalHeight = img.naturalHeight;
     const naturalWidth = img.naturalWidth;
-    const maxHeight = 150; // El alto máximo permitido
+    const maxHeight = 150;
 
     let newHeight = naturalHeight;
     let newWidth = naturalWidth;
 
-    // Reescalar basándonos únicamente en el alto
     if (naturalHeight > maxHeight) {
-      // Si el alto supera el máximo, ajustamos manteniendo la proporción
       const scale = maxHeight / naturalHeight;
-      newHeight = maxHeight; // Limitamos el alto a 150px
-      newWidth = naturalWidth * scale; // Ajustamos el ancho proporcionalmente
+      newHeight = maxHeight;
+      newWidth = naturalWidth * scale;
     } else if (naturalHeight < 50) {
-      // Para imágenes muy pequeñas, aumentamos su tamaño
-      const increaseFactor = 2; // Aumento para imágenes muy pequeñas
+      const increaseFactor = 2;
       newHeight = naturalHeight * increaseFactor;
       newWidth = naturalWidth * increaseFactor;
     } else if (naturalHeight < 100) {
-      // Para imágenes pequeñas, aplicamos un incremento moderado
-      const increaseFactor = 1.3; // Incremento moderado para imágenes pequeñas
+      const increaseFactor = 1.3;
       newHeight = naturalHeight * increaseFactor;
       newWidth = naturalWidth * increaseFactor;
     }
 
-    // Ajustar las dimensiones de la imagen
     img.style.height = `${newHeight}px`;
     img.style.width = `${newWidth}px`;
   };

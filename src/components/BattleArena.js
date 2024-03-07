@@ -45,10 +45,9 @@ const BattleArena = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      // Suponiendo que la respuesta tiene la estructura esperada, actualiza el estado
       setCombatState(prevState => ({
         ...prevState,
-        userStatus: data.result.userStatus, // Asume estos campos basados en tu estructura de datos
+        userStatus: data.result.userStatus,
         aiStatus: data.result.aiStatus,
       }));
       setCombatLog(data.result.log);
@@ -59,6 +58,9 @@ const BattleArena = () => {
 
   const handleChangePokemon = async (pokemonName, forcedChange = false) => {
     try {
+      if (combatState.userStatus && combatState.userStatus.stats.life <= 0) {
+        forcedChange = true;
+      }
       const response = await fetch('http://localhost:3000/combat/change', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -72,10 +74,9 @@ const BattleArena = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      // Actualiza el estado con los nuevos datos
       setCombatState(prevState => ({
         ...prevState,
-        userStatus: data.result.userStatus, // Asume estos campos basados en tu estructura de datos
+        userStatus: data.result.userStatus,
       }));
       setCombatLog(data.result.log);
     } catch (error) {
