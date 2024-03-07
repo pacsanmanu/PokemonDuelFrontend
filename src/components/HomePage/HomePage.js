@@ -1,7 +1,7 @@
 // HomePage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCombat } from './CombatContext'; // Asegúrate de usar la ruta correcta
+import { useCombat } from '../CombatContext'; // Asegúrate de usar la ruta correcta
 
 const HomePage = () => {
   const [teamInput, setTeamInput] = useState('{"player": ["charizard", "mewtwo", "pikachu"], "ai": ["rattata", "raticate", "spearow"]}');

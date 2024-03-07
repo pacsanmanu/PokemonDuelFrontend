@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CombatProvider } from './components/CombatContext';
-import HomePage from './components/HomePage';
-import BattleArena from './components/BattleArena';
+import HomePage from './components/HomePage/HomePage';
+import BattleArena from './components/BattleArena/BattleArena';
 import './App.css';
 
 const App = () => {

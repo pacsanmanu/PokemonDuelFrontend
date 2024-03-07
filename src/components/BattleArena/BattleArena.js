@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCombat } from './CombatContext'; // Ajusta la ruta según tu estructura de archivos
-import PokemonDetails from './PokemonDetails';
-import TeamDisplay from './TeamDisplay';
-import CombatStatusDisplay from './CombatStatusDisplay';
+import { useCombat } from '../CombatContext';
+import PokemonDetails from '../PokemonDetails/PokemonDetails';
+import TeamDisplay from '../TeamDisplay/TeamDisplay';
+import CombatStatusDisplay from '../CombatStatusDisplay/CombatStatusDisplay';
 import './BattleArena.css';
 
 const BattleArena = () => {
