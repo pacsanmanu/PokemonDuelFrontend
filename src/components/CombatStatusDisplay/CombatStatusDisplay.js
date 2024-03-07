@@ -1,4 +1,5 @@
 import React from 'react';
+import './CombatStatusDisplay.css';
 
 const CombatStatusDisplay = ({ combatLog }) => {
   return (

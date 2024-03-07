@@ -20,15 +20,29 @@ const BattleArena = () => {
 
   useEffect(() => {
     if (combatData) {
+      // Inicializa el equipo con maxLife basado en la vida inicial
+      const userTeamWithMaxLife = combatData.playerPokemons.map(pokemon => ({
+        ...pokemon,
+        maxLife: pokemon.stats.life,
+      }));
+      const aiTeamWithMaxLife = combatData.aiPokemons.map(pokemon => ({
+        ...pokemon,
+        maxLife: pokemon.stats.life,
+      }));
       setCombatState({
         combatId: combatData.combatId,
-        userStatus: combatData.playerPokemons[0],
-        aiStatus: combatData.aiPokemons[0],
-        userTeam: combatData.playerPokemons,
-        aiTeam: combatData.aiPokemons
+        userStatus: userTeamWithMaxLife[0],
+        aiStatus: aiTeamWithMaxLife[0],
+        userTeam: userTeamWithMaxLife,
+        aiTeam: aiTeamWithMaxLife,
       });
     }
   }, [combatData]);
+
+  const updateTeamWithMaxLife = (team, updatedMember) => {
+    return team.map(member => 
+      member._id === updatedMember._id ? updatedMember : member);
+  };
 
   const handleAttack = async (moveIndex) => {
     try {
@@ -37,22 +51,36 @@ const BattleArena = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           combatId: combatState.combatId,
-          moveIndex
-        })
+          moveIndex,
+        }),
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+
+      // Actualiza el estado conservando maxLife para userTeam y aiTeam
       setCombatState(prevState => ({
         ...prevState,
-        userStatus: data.result.userStatus,
-        aiStatus: data.result.aiStatus,
-        userTeam: data.result.userTeam,
-        aiTeam: data.result.aiTeam,
-        winner: data.result.winner
+        userStatus: {
+          ...data.result.userStatus,
+          maxLife: prevState.userStatus.maxLife, // Conserva maxLife
+        },
+        aiStatus: {
+          ...data.result.aiStatus,
+          maxLife: prevState.aiStatus.maxLife, // Conserva maxLife
+        },
+        userTeam: updateTeamWithMaxLife(prevState.userTeam, {
+          ...data.result.userStatus,
+          maxLife: prevState.userStatus.maxLife,
+        }),
+        aiTeam: updateTeamWithMaxLife(prevState.aiTeam, {
+          ...data.result.aiStatus,
+          maxLife: prevState.aiStatus.maxLife,
+        }),
+        winner: data.result.winner,
       }));
-      
+
       setCombatLog(data.result.log);
     } catch (error) {
       console.error('Failed to execute attack:', error);
@@ -70,21 +98,26 @@ const BattleArena = () => {
         body: JSON.stringify({
           combatId: combatState.combatId,
           pokemonName,
-          forcedChange
-        })
+          forcedChange,
+        }),
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+
       setCombatState(prevState => ({
         ...prevState,
-        userStatus: data.result.userStatus,
+        userStatus: {
+          ...data.result.userStatus,
+          maxLife: prevState.userTeam.find(p => p.name === pokemonName).maxLife,
+        },
         aiStatus: data.result.aiStatus,
-        userTeam: data.result.userTeam,
-        aiTeam: data.result.aiTeam,
-        winner: data.result.winner
-      }));      
+        userTeam: updateTeamWithMaxLife(prevState.userTeam, data.result.userStatus),
+        aiTeam: updateTeamWithMaxLife(prevState.aiTeam, data.result.aiStatus),
+        winner: data.result.winner,
+      }));
+
       setCombatLog(data.result.log);
     } catch (error) {
       console.error('Failed to change Pokémon:', error);
@@ -102,6 +135,7 @@ const BattleArena = () => {
               <PokemonDetails
                 role="user"
                 pokemon={combatState.userStatus}
+                maxLife={combatState.userStatus.maxLife}
                 onAttack={handleAttack}
               />
             )}
@@ -109,6 +143,7 @@ const BattleArena = () => {
               <PokemonDetails
                 role="ai"
                 pokemon={combatState.aiStatus}
+                maxLife={combatState.aiStatus.maxLife}
               />
             )}
           </div>
@@ -123,6 +158,5 @@ const BattleArena = () => {
     </div>
   );
 };
-
 
 export default BattleArena;

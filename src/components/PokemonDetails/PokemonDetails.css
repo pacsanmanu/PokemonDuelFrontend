@@ -78,3 +78,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+.health-bar-container {
+  width: 100%; /* O cualquier anchura específica que desees */
+  background-color: #eee; /* Color de fondo para la parte "vacía" de la barra de salud */
+  border-radius: 8px;
+  overflow: hidden; /* Mantiene todo dentro de los bordes redondeados */
+}
+
+.health-bar {
+  height: 8px; /* Ajusta según necesites */
+  background-color: #4CAF50; /* Color de la barra de salud */
+  border-radius: 8px; /* Opcional, si quieres bordes redondeados */
+}

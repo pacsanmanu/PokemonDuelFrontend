@@ -30,7 +30,10 @@ const PokemonDetails = ({ role, pokemon, onAttack }) => {
     img.style.width = `${newWidth}px`;
   };
 
-  return (
+  const lifePercentage = Math.max(0, (pokemon.stats.life / pokemon.maxLife) * 100); 
+  console.log(pokemon)
+
+   return (
     <div className="pokemon-details">
       <img
         className={role === 'user' ? 'user-pokemon' : 'ai-pokemon'}
@@ -39,13 +42,16 @@ const PokemonDetails = ({ role, pokemon, onAttack }) => {
         onLoad={handleImageLoad}
       />
       <h2>{pokemon.name}</h2>
-      <p>HP: {pokemon.stats.life}</p>
+      <div className="health-bar-container">
+        <div className="health-bar" style={{ width: `${lifePercentage}%` }}></div>
+      </div>
       <div className="pokemon-moves-container">
         {role === 'user' && pokemon.moves.map((move, index) => (
           <button
-          key={index}
-          onClick={() => onAttack(index)}
-          className={`pokemon-move-button type-${move.type.toLowerCase()}`}
+            key={index}
+            onClick={() => onAttack(index)}
+            disabled={pokemon.stats.life <= 0}
+            className={`pokemon-move-button type-${move.type.toLowerCase()}`}
           >
             {move.name}
           </button>
@@ -54,5 +60,7 @@ const PokemonDetails = ({ role, pokemon, onAttack }) => {
     </div>
   );
 };
+
+
 
 export default PokemonDetails;
