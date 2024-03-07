@@ -48,6 +48,8 @@ const BattleArena = () => {
         ...prevState,
         userStatus: data.result.userStatus,
         aiStatus: data.result.aiStatus,
+        userTeam: data.result.userTeam,
+        aiTeam: data.result.aiTeam,
         winner: data.result.winner
       }));
       
@@ -79,6 +81,8 @@ const BattleArena = () => {
         ...prevState,
         userStatus: data.result.userStatus,
         aiStatus: data.result.aiStatus,
+        userTeam: data.result.userTeam,
+        aiTeam: data.result.aiTeam,
         winner: data.result.winner
       }));      
       setCombatLog(data.result.log);
@@ -111,6 +115,7 @@ const BattleArena = () => {
           <TeamDisplay
             team={combatState.userTeam}
             onChangePokemon={handleChangePokemon}
+            currentPokemon={combatState.userStatus}
           />
           <CombatStatusDisplay combatLog={combatLog} />
         </>

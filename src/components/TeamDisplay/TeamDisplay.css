@@ -23,3 +23,9 @@
 .team-display button:hover {
   background-color: #43a047;
 }
+
+.team-display button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
