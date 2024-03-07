@@ -110,11 +110,20 @@ const BattleArena = () => {
         ...prevState,
         userStatus: {
           ...data.result.userStatus,
-          maxLife: prevState.userTeam.find(p => p.name === pokemonName).maxLife,
+          maxLife: prevState.userStatus.maxLife, // Conserva maxLife
         },
-        aiStatus: data.result.aiStatus,
-        userTeam: updateTeamWithMaxLife(prevState.userTeam, data.result.userStatus),
-        aiTeam: updateTeamWithMaxLife(prevState.aiTeam, data.result.aiStatus),
+        aiStatus: {
+          ...data.result.aiStatus,
+          maxLife: prevState.aiStatus.maxLife, // Conserva maxLife
+        },
+        userTeam: updateTeamWithMaxLife(prevState.userTeam, {
+          ...data.result.userStatus,
+          maxLife: prevState.userStatus.maxLife,
+        }),
+        aiTeam: updateTeamWithMaxLife(prevState.aiTeam, {
+          ...data.result.aiStatus,
+          maxLife: prevState.aiStatus.maxLife,
+        }),
         winner: data.result.winner,
       }));
 
