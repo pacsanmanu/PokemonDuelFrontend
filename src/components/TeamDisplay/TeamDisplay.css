@@ -29,3 +29,11 @@
   cursor: not-allowed;
 }
 
+.team-display img{
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  margin: 10px;
+  object-fit: contain;
+}
+

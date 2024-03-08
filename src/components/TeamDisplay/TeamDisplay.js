@@ -12,7 +12,10 @@ const TeamDisplay = ({ team, onChangePokemon, currentPokemon }) => {
             disabled={isDisabled}
             style={{ cursor: isDisabled ? 'not-allowed' : 'pointer' }}
           >
-            {pokemon.name}
+            <img
+              src={`${process.env.PUBLIC_URL}/images/sprites/${pokemon.pokedexId}.gif`}
+              alt={pokemon.name}
+            />
           </button>
         );
       })}
