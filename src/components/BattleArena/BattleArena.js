@@ -53,7 +53,6 @@ const BattleArena = () => {
       }
       const data = await response.json();
 
-      // Encuentra y conserva maxLife para el usuario y la IA actualizando su estado
       const newUserStatus = {
         ...data.result.userStatus,
         maxLife: combatState.userTeam.find(p => p._id === data.result.userStatus._id).maxLife,
@@ -98,16 +97,23 @@ const BattleArena = () => {
       }
       const data = await response.json();
 
-      // Encuentra el nuevo Pokémon activo en userTeam y conserva su maxLife
       const newUserStatus = {
         ...data.result.userStatus,
         maxLife: combatState.userTeam.find(p => p.name === pokemonName).maxLife,
       };
 
+      const newAiStatus = {
+        ...data.result.aiStatus,
+        maxLife: combatState.aiTeam.find(p => p._id === data.result.aiStatus._id).maxLife,
+      };
+
       setCombatState(prevState => ({
         ...prevState,
         userStatus: newUserStatus,
-        // No necesita actualizar el team completo, solo el status activo
+        aiStatus: newAiStatus,
+        userTeam: prevState.userTeam.map(p => p._id === newUserStatus._id ? newUserStatus : p),
+        aiTeam: prevState.aiTeam.map(p => p._id === newAiStatus._id ? newAiStatus : p),
+        winner: data.result.winner,
       }));
 
       setCombatLog(data.result.log);
