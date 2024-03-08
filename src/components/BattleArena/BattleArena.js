@@ -122,6 +122,35 @@ const BattleArena = () => {
     }
   };
 
+  useEffect(() => {
+    const deleteCombat = async () => {
+      if (combatState.winner) {
+        try {
+          const response = await fetch('http://localhost:3000/combat', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              combatId: combatState.combatId,
+            }),
+          });
+  
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+  
+          console.log('Combat deleted successfully');
+        } catch (error) {
+          console.error('Failed to delete combat:', error);
+        }
+      }
+    };
+  
+    deleteCombat();
+  }, [combatState.combatId, combatState.winner]);
+  
+
   return (
     <div className="battle-arena">
       {combatState.winner ? (
