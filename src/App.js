@@ -3,11 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { CombatProvider } from './components/CombatContext';
 import HomePage from './components/HomePage/HomePage';
 import BattleArena from './components/BattleArena/BattleArena';
-import Login from './components/Login/Login'; // Asegúrate de que el componente Login esté correctamente importado
+import Login from './components/Login/Login';
 import './App.css';
 
 const App = () => {
-  // Función para verificar si el usuario está autenticado
   const isAuthenticated = () => {
     return localStorage.getItem('token') ? true : false;
   };
