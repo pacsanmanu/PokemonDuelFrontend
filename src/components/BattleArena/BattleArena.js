@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCombat } from '../CombatContext';
 import PokemonDetails from '../PokemonDetails/PokemonDetails';
 import TeamDisplay from '../TeamDisplay/TeamDisplay';
@@ -16,17 +17,18 @@ const BattleArena = () => {
     aiTeam: [],
     winner: null
   });
+  const navigate = useNavigate();
   const [combatLog, setCombatLog] = useState([]);
 
   useEffect(() => {
     if (combatData) {
       const userTeamWithMaxLife = combatData.playerPokemons.map(pokemon => ({
         ...pokemon,
-        maxLife: pokemon.stats.life, // Establece maxLife en la inicialización
+        maxLife: pokemon.stats.life,
       }));
       const aiTeamWithMaxLife = combatData.aiPokemons.map(pokemon => ({
         ...pokemon,
-        maxLife: pokemon.stats.life, // Establece maxLife en la inicialización
+        maxLife: pokemon.stats.life,
       }));
       setCombatState({
         combatId: combatData.combatId,
@@ -38,22 +40,31 @@ const BattleArena = () => {
     }
   }, [combatData]);
 
+  const getToken = () => {
+    return localStorage.getItem('token');
+  };
+
   const handleAttack = async (moveIndex) => {
     try {
       const response = await fetch('http://localhost:3000/combat/attack', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getToken()}`,
+        },
         body: JSON.stringify({
           combatId: combatState.combatId,
           moveIndex,
         }),
       });
       if (!response.ok) {
+        if (response.status === 401) {
+          navigate('/login');
+        }
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
 
-      // Encuentra y conserva maxLife para el usuario y la IA actualizando su estado
       const newUserStatus = {
         ...data.result.userStatus,
         maxLife: combatState.userTeam.find(p => p._id === data.result.userStatus._id).maxLife,
@@ -86,7 +97,10 @@ const BattleArena = () => {
       }
       const response = await fetch('http://localhost:3000/combat/change', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getToken()}`,
+        },
         body: JSON.stringify({
           combatId: combatState.combatId,
           pokemonName,
@@ -94,20 +108,30 @@ const BattleArena = () => {
         }),
       });
       if (!response.ok) {
+        if (response.status === 401) {
+          navigate('/login');
+        }
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
 
-      // Encuentra el nuevo Pokémon activo en userTeam y conserva su maxLife
       const newUserStatus = {
         ...data.result.userStatus,
         maxLife: combatState.userTeam.find(p => p.name === pokemonName).maxLife,
       };
 
+      const newAiStatus = {
+        ...data.result.aiStatus,
+        maxLife: combatState.aiTeam.find(p => p._id === data.result.aiStatus._id).maxLife,
+      };
+
       setCombatState(prevState => ({
         ...prevState,
         userStatus: newUserStatus,
-        // No necesita actualizar el team completo, solo el status activo
+        aiStatus: newAiStatus,
+        userTeam: prevState.userTeam.map(p => p._id === newUserStatus._id ? newUserStatus : p),
+        aiTeam: prevState.aiTeam.map(p => p._id === newAiStatus._id ? newAiStatus : p),
+        winner: data.result.winner,
       }));
 
       setCombatLog(data.result.log);
@@ -115,6 +139,37 @@ const BattleArena = () => {
       console.error('Failed to change Pokémon:', error);
     }
   };
+
+  useEffect(() => {
+    const deleteCombat = async () => {
+      if (combatState.winner) {
+        try {
+          const response = await fetch('http://localhost:3000/combat', {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${getToken()}`,
+            },
+            body: JSON.stringify({
+              combatId: combatState.combatId,
+            }),
+          });
+          if (!response.ok) {
+            if (response.status === 401) {
+              navigate('/login');
+            }
+            throw new Error('Network response was not ok');
+          }
+          console.log('Combat deleted successfully');
+        } catch (error) {
+          console.error('Failed to delete combat:', error);
+        }
+      }
+    };
+
+    deleteCombat();
+  }, [combatState.combatId, combatState.winner, navigate]);
+
 
   return (
     <div className="battle-arena">

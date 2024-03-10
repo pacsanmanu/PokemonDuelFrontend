@@ -25,7 +25,28 @@
 }
 
 .team-display button:disabled {
-  background-color: #ccc;
+  background-color: #6b0000;
   cursor: not-allowed;
 }
 
+.isCurrent{
+  background-color: gray !important;
+  cursor: not-allowed;
+}
+
+.team-display div{
+  display: flex;
+  flex-direction: column;
+}
+
+.team-display p{
+  color: rgb(255, 255, 255);
+}
+
+.team-display img{
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  margin: 10px;
+  object-fit: contain;
+}

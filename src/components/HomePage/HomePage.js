@@ -1,31 +1,41 @@
 // HomePage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCombat } from '../CombatContext'; // Asegúrate de usar la ruta correcta
+import { useCombat } from '../CombatContext';
 
 const HomePage = () => {
-  const [teamInput, setTeamInput] = useState('{"player": ["charizard", "mewtwo", "pikachu"], "ai": ["rattata", "raticate", "spearow"]}');
+  const [teamInput, setTeamInput] = useState('{"player": ["rayquaza-mega", "groudon-primal", "metagross-mega", "mewtwo-mega-y"], "ai": ["rattata", "raticate", "spearow"]}');
   const navigate = useNavigate();
   const { setCombatData } = useCombat();
 
   const handleStartCombat = async () => {
-    // Suponiendo que este es el endpoint correcto y formato de datos
-    try {
-      const response = await fetch('http://localhost:3000/combat/start', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: teamInput
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const data = await response.json();
-      setCombatData(data);
-      navigate('/battle');
-    } catch (error) {
-      console.error('Failed to start combat:', error);
+    const token = localStorage.getItem('token');
+    if (!token) {
+        console.error('No token found, please login');
+        navigate('/login');
+        return;
     }
-  };
+
+    try {
+        const response = await fetch('http://localhost:3000/combat/start', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: teamInput
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setCombatData(data);
+        navigate('/battle');
+    } catch (error) {
+        console.error('Failed to start combat:', error);
+    }
+};
+
 
   return (
     <div>
