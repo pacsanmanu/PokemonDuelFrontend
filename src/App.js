@@ -4,6 +4,7 @@ import { CombatProvider } from './components/CombatContext';
 import HomePage from './components/HomePage/HomePage';
 import BattleArena from './components/BattleArena/BattleArena';
 import Login from './components/Login/Login';
+import Register from './components/Register/Register';
 import { AuthProvider, useAuth } from './components/AuthContext';
 import './App.css';
 
@@ -21,7 +22,7 @@ const App = () => {
             <Route path="/" element={<AuthenticatedRoute><HomePage /></AuthenticatedRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/battle" element={<AuthenticatedRoute><BattleArena /></AuthenticatedRoute>} />
-            {/* Asegúrate de agregar la ruta de registro cuando crees el componente de registro */}
+            <Route path="/register" element={<Register />} />
           </Routes>
         </CombatProvider>
       </AuthProvider>
