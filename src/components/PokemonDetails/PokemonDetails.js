@@ -31,7 +31,6 @@ const PokemonDetails = ({ role, pokemon, onAttack }) => {
   };
 
   const lifePercentage = Math.max(0, (pokemon.stats.life / pokemon.maxLife) * 100); 
-  console.log(pokemon)
 
    return (
     <div className="pokemon-details">
