@@ -4,8 +4,9 @@ import { useCombat } from '../CombatContext';
 
 const HomePage = () => {
   const [userTeam, setUserTeam] = useState([]);
-  const [pokemonsToBuy, setPokemonsToBuy] = useState(['pikachu', 'charmander', 'squirtle']);
+  const [pokemonsToBuy, setPokemonsToBuy] = useState([]);
   const [userCoins, setUserCoins] = useState(0);
+  const [userVictories, setUserVictories] = useState(0); 
   const navigate = useNavigate();
   const { setCombatData } = useCombat();
 
@@ -34,10 +35,40 @@ const HomePage = () => {
       const data = await response.json();
       setUserTeam(data.team || []);
       setUserCoins(data.coins || 0);
+      setUserVictories(data.victories || 0);
     } catch (error) {
       console.error('Failed to fetch user data:', error);
     }
   };
+
+  useEffect(() => {
+    const fetchPokemonsToBuy = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Authentication information not found');
+        return;
+      }
+  
+      try {
+        const response = await fetch(`http://localhost:3000/market/pokemons`, {
+          method: 'POST', 
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ victories: userVictories })
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch Pokemons to buy');
+        }
+        const { pokemons } = await response.json();
+        setPokemonsToBuy(pokemons);
+      } catch (error) {
+        console.error('Failed to fetch Pokemons to buy:', error);
+      }
+    };
+    fetchPokemonsToBuy();
+  }, [userVictories]);
 
   const handleBuyPokemon = async (pokemonName) => {
     const token = localStorage.getItem('token');
@@ -153,15 +184,15 @@ const HomePage = () => {
       </ul>
       <h2>Pokemons to Buy</h2>
       <div>
-        {pokemonsToBuy.map((pokemon, index) => (
-          <button key={index} onClick={() => handleBuyPokemon(pokemon)}>
-            Buy {pokemon}
+        {pokemonsToBuy.map((pokemon) => (
+          <button key={pokemon._id} onClick={() => handleBuyPokemon(pokemon.name)}>
+            Buy {pokemon.name}
           </button>
         ))}
       </div>
       <button onClick={handleStartCombat} style={{ marginTop: '10px' }}>Start Combat</button>
     </div>
   );
-};
-
+}
+  
 export default HomePage;
