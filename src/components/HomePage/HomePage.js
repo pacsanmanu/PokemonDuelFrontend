@@ -33,6 +33,7 @@ const HomePage = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      localStorage.setItem('userId', data._id);
       setUserTeam(data.team || []);
       setUserCoins(data.coins || 0);
       setUserVictories(data.victories || 0);
@@ -112,7 +113,7 @@ const HomePage = () => {
     }
   
     const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId'); // Asegúrate de que el userId se almacena en localStorage
+    const userId = localStorage.getItem('userId');
     if (!token || !userId) {
       console.error('Authentication information not found');
       return;
@@ -120,18 +121,18 @@ const HomePage = () => {
   
     try {
       const response = await fetch(`http://localhost:3000/users/pokemon`, {
-        method: 'POST', // Usando POST ya que se envían datos en el cuerpo
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ userId, pokemonIndex: index }), // Enviando userId y pokemonIndex en el cuerpo
+        body: JSON.stringify({ userId, pokemonIndex: index }),
       });
       if (!response.ok) {
         throw new Error('Failed to remove Pokémon');
       }
       alert('Pokémon removed successfully!');
-      fetchUserData(); // Actualiza los datos del usuario
+      fetchUserData();
     } catch (error) {
       console.error('Failed to remove Pokémon:', error);
       alert(error.message);
