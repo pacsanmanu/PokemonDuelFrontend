@@ -160,7 +160,6 @@ const BattleArena = () => {
             }
             throw new Error('Network response was not ok');
           }
-          console.log('Combat deleted successfully');
         } catch (error) {
           console.error('Failed to delete combat:', error);
         }
