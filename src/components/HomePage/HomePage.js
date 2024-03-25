@@ -93,12 +93,10 @@ const HomePage = () => {
       }
 
       if (data.teamIsFull) {
-        // Manejo cuando el equipo está completo
         alert(data.message);
-        // Aquí podrías abrir un modal para que el usuario elija qué Pokémon eliminar
       } else {
         alert(`${pokemonName} bought successfully!`);
-        fetchUserData(); // Actualiza los datos del usuario si la compra fue exitosa
+        fetchUserData();
       }
     } catch (error) {
       console.error('Failed to buy Pokemon:', error);
@@ -142,36 +140,54 @@ const HomePage = () => {
   const handleStartCombat = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-        console.error('No token found, please login');
-        navigate('/login');
-        return;
+      console.error('No token found, please login');
+      navigate('/login');
+      return;
     }
-
-    const teamInput = JSON.stringify({
-      player: userTeam,
-      ai: ["rattata"]
-    });
-
+  
     try {
-        const response = await fetch('http://localhost:3000/combat/start', {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: teamInput
-        });
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+      const aiResponse = await fetch('http://localhost:3000/combat/ai-team', {
+        method: 'GET',
+        headers: { 
+          'Authorization': `Bearer ${token}`
         }
-        const data = await response.json();
-        setCombatData(data);
-        console.log(data);
-        navigate('/battle');
+      });
+  
+      if (!aiResponse.ok) {
+        throw new Error('Failed to get AI team');
+      }
+  
+      const { aiTeam } = await aiResponse.json();
+  
+      const teamInput = JSON.stringify({
+        player: userTeam,
+        ai: aiTeam
+      });
+
+      console.log(teamInput);
+  
+      const response = await fetch('http://localhost:3000/combat/start', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: teamInput
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+      setCombatData(data);
+      console.log(data);
+      navigate('/battle');
     } catch (error) {
-        console.error('Failed to start combat:', error);
+      console.error('Failed to start combat:', error);
     }
   };
+  
 
   return (
     <div>
