@@ -203,7 +203,7 @@ const HomePage = () => {
       <div>
         {pokemonsToBuy.map((pokemon) => (
           <button key={pokemon._id} onClick={() => handleBuyPokemon(pokemon.name)}>
-            Buy {pokemon.name}
+            Buy {pokemon.name} for {pokemon.price} coins
           </button>
         ))}
       </div>
