@@ -4,6 +4,7 @@ import { useCombat } from '../CombatContext';
 
 const HomePage = () => {
   const [userTeam, setUserTeam] = useState([]);
+  const [evolutions, setEvolutions] = useState({}); // Nuevo estado para almacenar las evoluciones
   const [pokemonsToBuy, setPokemonsToBuy] = useState([]);
   const [userCoins, setUserCoins] = useState(0);
   const [userVictories, setUserVictories] = useState(0); 
@@ -37,6 +38,24 @@ const HomePage = () => {
       setUserTeam(data.team || []);
       setUserCoins(data.coins || 0);
       setUserVictories(data.victories || 0);
+      
+      const evolutionResponse = await fetch('http://localhost:3000/pokemon/by-names', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ names: data.team })
+      });
+      if (!evolutionResponse.ok) {
+        throw new Error('Failed to fetch Pokemon evolutions');
+      }
+      const evolutionsData = await evolutionResponse.json();
+      const evolutionsMap = evolutionsData.reduce((acc, pokemon) => {
+        acc[pokemon.name] = pokemon.evolution;
+        return acc;
+      }, {});
+      setEvolutions(evolutionsMap);
     } catch (error) {
       console.error('Failed to fetch user data:', error);
     }
@@ -137,6 +156,46 @@ const HomePage = () => {
     }
   };
 
+  const handleEvolvePokemon = async (index) => {
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    if (!token || !userId) {
+      console.error('Authentication information not found');
+      return;
+    }
+  
+    try {
+      const response = await fetch(`http://localhost:3000/users/pokemon/evolve`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ userId, pokemonIndex: index }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to evolve Pokémon');
+      }
+  
+      const responseData = await response.json(); // Obtiene toda la respuesta como un objeto
+      const evolvedPokemonName = responseData.evolvedPokemon; // Accede al nombre del Pokémon evolucionado
+  
+      const updatedTeam = [...userTeam];
+      updatedTeam[index] = evolvedPokemonName; // Actualiza el nombre del Pokémon evolucionado en el array
+  
+      setUserTeam(updatedTeam); // Actualiza el estado del equipo con el nuevo nombre
+  
+      alert(responseData.message); // Usa el mensaje de la respuesta para la alerta
+    } catch (error) {
+      console.error('Failed to evolve Pokémon:', error);
+      alert(error.message);
+    }
+  };
+  
+  
+
   const handleStartCombat = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -195,7 +254,8 @@ const HomePage = () => {
       <ul>
         {userTeam.map((pokemon, index) => (
           <li key={index}>
-            <button onClick={() => handleRemovePokemon(index)}>Remove</button> {pokemon}
+            {pokemon} {evolutions[pokemon] && <button onClick={() => handleEvolvePokemon(index)}>Evolve</button>}
+            <button onClick={() => handleRemovePokemon(index)}>Remove</button>
           </li>
         ))}
       </ul>
