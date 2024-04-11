@@ -4,7 +4,7 @@ import { useCombat } from '../CombatContext';
 
 const HomePage = () => {
   const [userTeam, setUserTeam] = useState([]);
-  const [evolutions, setEvolutions] = useState({}); // Nuevo estado para almacenar las evoluciones
+  const [evolutions, setEvolutions] = useState({});
   const [pokemonsToBuy, setPokemonsToBuy] = useState([]);
   const [userCoins, setUserCoins] = useState(0);
   const [userVictories, setUserVictories] = useState(0); 
@@ -55,6 +55,29 @@ const HomePage = () => {
         acc[pokemon.name] = pokemon.evolution;
         return acc;
       }, {});
+      for (const [pokemonName, evolutionName] of Object.entries(evolutionsMap)) {
+        if (evolutionName) {
+          try {
+            const evolutionCostResponse = await fetch('http://localhost:3000/pokemon/evolution-cost', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },
+              body: JSON.stringify({ pokemonName: evolutionName }),
+            });
+      
+            if (evolutionCostResponse.ok) {
+              const { evolutionCost } = await evolutionCostResponse.json();
+              evolutionsMap[pokemonName] = { evolutionName, evolutionCost };
+            } else {
+              console.error(`Failed to fetch evolution cost for ${evolutionName}`);
+            }
+          } catch (error) {
+            console.error(`Error fetching evolution cost for ${evolutionName}:`, error);
+          }
+        }
+      }
       setEvolutions(evolutionsMap);
     } catch (error) {
       console.error('Failed to fetch user data:', error);
@@ -165,7 +188,14 @@ const HomePage = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:3000/users/pokemon/evolve`, {
+      const pokemonName = userTeam[index]; // Asume que userTeam tiene los nombres de los pokémon
+      const evolutionInfo = evolutions[pokemonName]; // Obtiene la información de evolución para este pokémon
+      if (!evolutionInfo) {
+        console.error('No evolution information found');
+        return;
+      }
+  
+      const response = await fetch(`http://localhost:3000/pokemon/evolve`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -179,23 +209,21 @@ const HomePage = () => {
         throw new Error(errorData.message || 'Failed to evolve Pokémon');
       }
   
-      const responseData = await response.json(); // Obtiene toda la respuesta como un objeto
-      const evolvedPokemonName = responseData.evolvedPokemon; // Accede al nombre del Pokémon evolucionado
+      const responseData = await response.json();
+      const evolvedPokemonName = responseData.evolvedPokemon;
   
       const updatedTeam = [...userTeam];
-      updatedTeam[index] = evolvedPokemonName; // Actualiza el nombre del Pokémon evolucionado en el array
+      updatedTeam[index] = evolvedPokemonName;
   
-      setUserTeam(updatedTeam); // Actualiza el estado del equipo con el nuevo nombre
-  
-      alert(responseData.message); // Usa el mensaje de la respuesta para la alerta
+      setUserTeam(updatedTeam);
+      setUserCoins(prevCoins => prevCoins - evolutionInfo.evolutionCost); // Actualiza el saldo de monedas
+      alert(responseData.message);
     } catch (error) {
       console.error('Failed to evolve Pokémon:', error);
       alert(error.message);
     }
   };
   
-  
-
   const handleStartCombat = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -252,12 +280,17 @@ const HomePage = () => {
     <div>
       <h2>Your Team (Coins: {userCoins})</h2>
       <ul>
-        {userTeam.map((pokemon, index) => (
-          <li key={index}>
-            {pokemon} {evolutions[pokemon] && <button onClick={() => handleEvolvePokemon(index)}>Evolve</button>}
-            <button onClick={() => handleRemovePokemon(index)}>Remove</button>
-          </li>
-        ))}
+      {userTeam.map((pokemon, index) => (
+        <li key={index}>
+          {pokemon} 
+          {evolutions[pokemon] && (
+            <>
+              <button onClick={() => handleEvolvePokemon(index)}>Evolve for {evolutions[pokemon].evolutionCost} coins</button>
+            </>
+          )}
+          <button onClick={() => handleRemovePokemon(index)}>Remove</button>
+        </li>
+      ))}
       </ul>
       <h2>Pokemons to Buy</h2>
       <div>
