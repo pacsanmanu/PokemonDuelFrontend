@@ -4,10 +4,12 @@ const MenuTeam = ({ userTeam, evolutions, onEvolvePokemon, onRemovePokemon, user
     <ul>
       {userTeam.map((pokemon, index) => (
         <li key={index}>
-          {pokemon} 
-          {evolutions[pokemon] && (
+          {pokemon}
+          {evolutions[pokemon] && evolutions[pokemon].evolution && (
             <>
-              <button onClick={() => onEvolvePokemon(index)}>Evolve for {evolutions[pokemon].evolutionCost} coins</button>
+              <button onClick={() => onEvolvePokemon(index)}>
+                Evolve to {evolutions[pokemon].evolution} for {evolutions[pokemon].cost} coins
+              </button>
             </>
           )}
           <button onClick={() => onRemovePokemon(index)}>Remove</button>
