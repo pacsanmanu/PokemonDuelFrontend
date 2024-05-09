@@ -11,6 +11,7 @@ const HomePage = () => {
   const [pokemonsToBuy, setPokemonsToBuy] = useState([]);
   const [userCoins, setUserCoins] = useState(0);
   const [userVictories, setUserVictories] = useState(0); 
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { setCombatData } = useCombat();
 
@@ -19,10 +20,17 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    if (!isLoading && userTeam.length === 0) {
+      navigate('/starter-selection');
+    }
+  }, [userTeam, isLoading, navigate]);
+
+  useEffect(() => {
     fetchPokemonsToBuy();
   }, [userVictories]);
 
   const fetchUserData = async () => {
+    setIsLoading(true);
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No token found, please login');
@@ -48,6 +56,8 @@ const HomePage = () => {
       fetchEvolutions(data.team, token);
     } catch (error) {
       console.error('Failed to fetch user data:', error);
+    } finally {
+      setIsLoading(false); // Finaliza la carga independientemente del resultado
     }
   };
 

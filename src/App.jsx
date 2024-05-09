@@ -5,6 +5,7 @@ import HomePage from './components/HomePage/HomePage';
 import BattleArena from './components/BattleArena/BattleArena';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import StarterSelection from './components/StarterSelection/StarterSelection';
 import { AuthProvider, useAuth } from './components/AuthContext';
 import './App.css';
 
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/battle" element={<AuthenticatedRoute><BattleArena /></AuthenticatedRoute>} />
             <Route path="/register" element={<Register />} />
+            <Route path="/starter-selection" element={<StarterSelection />} />
           </Routes>
         </CombatProvider>
       </AuthProvider>
