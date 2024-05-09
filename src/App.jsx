@@ -24,7 +24,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/battle" element={<AuthenticatedRoute><BattleArena /></AuthenticatedRoute>} />
             <Route path="/register" element={<Register />} />
-            <Route path="/starter-selection" element={<StarterSelection />} />
+            <Route path="/starter-selection" element={<AuthenticatedRoute><StarterSelection /></AuthenticatedRoute>} />
           </Routes>
         </CombatProvider>
       </AuthProvider>
