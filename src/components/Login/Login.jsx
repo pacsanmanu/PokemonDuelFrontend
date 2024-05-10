@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Importa Link de react-router-dom
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import './Login.css';
 
@@ -8,7 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { login, logout, validateToken } = useAuth();
+    const { login } = useAuth(); // Solo necesitamos la función login
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,21 +20,16 @@ const Login = () => {
                 body: JSON.stringify({ username, password })
             });
             const data = await response.json();
+
             if (!response.ok) {
                 setError(data.message || 'Usuario o contraseña incorrecta');
                 return;
             }
 
-            await login(data.token);
-            const isValid = await validateToken();
-            
-            if (isValid) {
-                navigate('/');
-            } else {
-                logout();
-                setError('El token no es válido.');
-            }
+            login(data.token); // Almacena el token y considera al usuario autenticado
+            navigate('/'); // Navega a la página principal directamente
         } catch (error) {
+            console.error('Login failed:', error);
             setError('Error al conectar con el servidor. Por favor, intenta de nuevo más tarde.');
         }
     };

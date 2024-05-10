@@ -10,30 +10,39 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    validateToken();
+    const validate = async () => {
+      const isValid = await validateToken();
+      setIsAuthenticated(isValid);
+    };
+
+    validate();
   }, []);
 
   const validateToken = async () => {
     const token = localStorage.getItem('token');
-    if (!token) return false;
+    if (!token) {
+      console.error("No token found");
+      return false;
+    }
 
     try {
-        const response = await fetch('http://localhost:3000/validate-token', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.ok) {
-            return true;
-        }
-        throw new Error('Token validation failed');
+      const response = await fetch('http://localhost:3000/validate-token', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return data.isValid;
+      }
+      throw new Error('Token validation failed');
     } catch (error) {
-        console.error(error);
-        return false;
+      console.error("Token validation error:", error);
+      return false;
     }
-};
+  };
 
   const login = (token) => {
     localStorage.setItem('token', token);
@@ -51,3 +60,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export default AuthProvider;
