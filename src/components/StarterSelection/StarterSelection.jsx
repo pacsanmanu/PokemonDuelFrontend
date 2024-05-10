@@ -17,7 +17,7 @@ const StarterSelection = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3000/pokemon/starters', {
+        const response = await fetch('https://projectbackend-ypns.onrender.com/pokemon/starters', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -49,7 +49,7 @@ const StarterSelection = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/users/add-starter', {
+      const response = await fetch('https://projectbackend-ypns.onrender.com/users/add-starter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

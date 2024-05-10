@@ -39,7 +39,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/users/me', {
+      const response = await fetch('https://projectbackend-ypns.onrender.com/users/me', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -65,7 +65,7 @@ const HomePage = () => {
     if (!team.length) return;
   
     try {
-      const evolutionResponse = await fetch('http://localhost:3000/pokemon/by-names', {
+      const evolutionResponse = await fetch('https://projectbackend-ypns.onrender.com/pokemon/by-names', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ const HomePage = () => {
   
       const evolutionCostPromises = evolutionsData.map(pokemon => {
         if (pokemon.evolution) {
-          return fetch(`http://localhost:3000/pokemon/evolution-cost`, {
+          return fetch(`https://projectbackend-ypns.onrender.com/pokemon/evolution-cost`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/market/pokemons`, {
+      const response = await fetch(`https://projectbackend-ypns.onrender.com/market/pokemons`, {
         method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:3000/market/buy`, {
+      const response = await fetch(`https://projectbackend-ypns.onrender.com/market/buy`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -185,7 +185,7 @@ const HomePage = () => {
     try {
       const evolutionCost = evolutionInfo.cost;
       if (userCoins >= evolutionCost) {
-        const evolveResponse = await fetch(`http://localhost:3000/pokemon/evolve`, {
+        const evolveResponse = await fetch(`https://projectbackend-ypns.onrender.com/pokemon/evolve`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -233,7 +233,7 @@ const HomePage = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:3000/users/pokemon`, {
+      const response = await fetch(`https://projectbackend-ypns.onrender.com/users/pokemon`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -262,7 +262,7 @@ const HomePage = () => {
     }
 
     try {
-      const aiResponse = await fetch('http://localhost:3000/combat/ai-team', {
+      const aiResponse = await fetch('https://projectbackend-ypns.onrender.com/combat/ai-team', {
         method: 'GET',
         headers: { 
           'Authorization': `Bearer ${token}`
@@ -279,7 +279,7 @@ const HomePage = () => {
         ai: aiTeam
       });
 
-      const response = await fetch('http://localhost:3000/combat/start', {
+      const response = await fetch('https://projectbackend-ypns.onrender.com/combat/start', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
