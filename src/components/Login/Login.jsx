@@ -8,7 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const { login } = useAuth(); // Solo necesitamos la función login
+    const { login } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,8 +26,8 @@ const Login = () => {
                 return;
             }
 
-            login(data.token); // Almacena el token y considera al usuario autenticado
-            navigate('/'); // Navega a la página principal directamente
+            login(data.token);
+            navigate('/');
         } catch (error) {
             console.error('Login failed:', error);
             setError('Error al conectar con el servidor. Por favor, intenta de nuevo más tarde.');
@@ -36,28 +36,33 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <form className="login-form" onSubmit={handleSubmit}>
-                <h2>Iniciar Sesión</h2>
-                {error && <div className="error-message">{error}</div>}
-                <label htmlFor="username">Usuario</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                <label htmlFor="password">Contraseña</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-                <button type="submit">Iniciar Sesión</button>
-                <div className="register-link">
-                    ¿No tienes cuenta? <Link to="/register">Regístrate aquí</Link>
-                </div>
-            </form>
+            <div className="login-image"></div>
+            <div className="login-form-container">
+                <form className="login-form" onSubmit={handleSubmit}>
+                    <h2>Inicia sesión</h2>
+                    {error && <div className="error-message">{error}</div>}
+                    <label htmlFor="username">Usuario</label>
+                    <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Ingresa tu usuario"
+                    />
+                    <label htmlFor="password">Contraseña</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Ingresa tu contraseña"
+                    />
+                    <button type="submit">Iniciar sesión</button>
+                    <div className="register-link">
+                        ¿No tienes cuenta? <Link to="/register"><span className='here'>Regístrate aquí</span></Link>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
