@@ -64,32 +64,38 @@ const Register = () => {
 
     return (
         <div className="register-container">
-            <form className="register-form" onSubmit={handleSubmit}>
-                <h2>Registro</h2>
-                {error && <div className="error-message">{error}</div>}
-                <label htmlFor="username">Usuario</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={handleChange}
-                />
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    onChange={handleChange}
-                />
-                <label htmlFor="password">Contraseña</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={handleChange}
-                />
-                <button type="submit">Registrarse</button>
-            </form>
+            <div className="register-image"></div>
+            <div className="register-form-container">
+                <form className="register-form" onSubmit={handleSubmit}>
+                    <h2>Registro</h2>
+                    {error && <div className="error-message">{error}</div>}
+                    <label htmlFor="username">Usuario</label>
+                    <input
+                        type="text"
+                        id="username"
+                        value={username}
+                        onChange={handleChange}
+                        placeholder="Ingresa tu usuario"
+                    />
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={handleChange}
+                        placeholder="Ingresa tu email"
+                    />
+                    <label htmlFor="password">Contraseña</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={handleChange}
+                        placeholder="Ingresa tu contraseña"
+                    />
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
         </div>
     );
 };
