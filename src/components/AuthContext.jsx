@@ -8,11 +8,13 @@ export function useAuth() {
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const validate = async () => {
       const isValid = await validateToken();
       setIsAuthenticated(isValid);
+      setLoading(false); // Termina la carga después de la validación
     };
 
     validate();
@@ -35,9 +37,10 @@ export const AuthProvider = ({ children }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        return data.isValid;
+        return data.valid; // Usa data.valid en lugar de data.isValid
       }
-      throw new Error('Token validation failed');
+      console.error('Token validation failed', response.statusText);
+      return false;
     } catch (error) {
       console.error("Token validation error:", error);
       return false;
@@ -55,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, validateToken }}>
+    <AuthContext.Provider value={{ isAuthenticated, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,24 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CombatProvider } from './components/CombatContext';
 import HomePage from './components/HomePage/HomePage';
 import BattleArena from './components/BattleArena/BattleArena';
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import StarterSelection from './components/StarterSelection/StarterSelection';
-import { AuthProvider, useAuth } from './components/AuthContext';
+import AuthProvider from './components/AuthContext';
+import AuthenticatedRoute from './components/AuthenticatedRoute';
 import './App.css';
-
-const AuthenticatedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return isAuthenticated ? children : <Navigate to="/login" />;
-};
-
 
 const App = () => {
   return (
