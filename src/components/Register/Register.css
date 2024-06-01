@@ -15,7 +15,6 @@ body, html {
   background-image: url('../../../public/images/register.webp'); /* Actualiza con la ruta de tu imagen */
   background-size: cover;
   background-position: center;
-  filter: drop-shadow(3px 0px 15px #000000a2);
 }
 
 .register-form-container {
@@ -23,7 +22,7 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #F7AB68; /* Fondo negro con transparencia */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo negro con transparencia */
 }
 
 .register-form {
@@ -49,10 +48,9 @@ body, html {
 }
 
 .register-form input {
-  width: calc(100% - 30px); /* Restar el margen derecho */
+  width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
-  margin-right: 10px; /* Añadir margen derecho */
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
@@ -76,7 +74,7 @@ body, html {
 }
 
 .register-form button:hover {
-  background-color: #b63b15;
+  background-color: #e64a19;
 }
 
 .error-message {
@@ -104,7 +102,8 @@ body, html {
   }
   .register-form {
     color: #333;
-    background-color: rgb(255, 255, 255); /* Fondo blanco con ligera transparencia */
+		background-color: rgb(255, 255, 255); /* Fondo blanco con ligera transparencia */
+
   }
   .register-form label, .register-form input, .register-form button {
     color: #333; /* Ajusta el color del texto a un gris oscuro */

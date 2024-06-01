@@ -3,15 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useCombat } from '../CombatContext';
 import MenuTeam from '../MenuTeam/MenuTeam';
 import Shop from '../Shop/Shop';
-import CombatStarter from '../CombatStarter/CombatStarter';
+import CombatStarter from '../CombatStarter/CombatStarter'; 
 
 const HomePage = () => {
   const [userTeam, setUserTeam] = useState([]);
   const [evolutions, setEvolutions] = useState({});
-  const [menuTeam, setMenuTeam] = useState({});
   const [pokemonsToBuy, setPokemonsToBuy] = useState([]);
   const [userCoins, setUserCoins] = useState(0);
-  const [userVictories, setUserVictories] = useState(0);
+  const [userVictories, setUserVictories] = useState(0); 
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { setCombatData } = useCombat();
@@ -54,17 +53,17 @@ const HomePage = () => {
       setUserTeam(data.team || []);
       setUserCoins(data.coins || 0);
       setUserVictories(data.victories || 0);
-      await fetchEvolutions(data.team, token);
+      fetchEvolutions(data.team, token);
     } catch (error) {
       console.error('Failed to fetch user data:', error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Finaliza la carga independientemente del resultado
     }
   };
 
   const fetchEvolutions = async (team, token) => {
     if (!team.length) return;
-
+  
     try {
       const evolutionResponse = await fetch('http://localhost:3000/pokemon/by-names', {
         method: 'POST',
@@ -74,12 +73,12 @@ const HomePage = () => {
         },
         body: JSON.stringify({ names: team })
       });
-
+  
       if (!evolutionResponse.ok) {
         throw new Error('Failed to fetch Pokemon evolutions');
       }
       const evolutionsData = await evolutionResponse.json();
-
+  
       const evolutionCostPromises = evolutionsData.map(pokemon => {
         if (pokemon.evolution) {
           return fetch(`http://localhost:3000/pokemon/evolution-cost`, {
@@ -89,34 +88,24 @@ const HomePage = () => {
               'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ pokemonName: pokemon.evolution })
-          }).then(response => response.json().then(data => ({
-            name: pokemon.name,
-            evolution: pokemon.evolution,
-            cost: data.evolutionCost,
-            pokedexId: pokemon.pokedexId
-          })));
+          }).then(response => response.json().then(data => ({ name: pokemon.name, evolution: pokemon.evolution, cost: data.evolutionCost })));
         } else {
-          return Promise.resolve({ name: pokemon.name, evolution: null, cost: null, pokedexId: pokemon.pokedexId });
+          return Promise.resolve({ name: pokemon.name, evolution: null, cost: null });
         }
       });
-
+  
       const evolutionsWithCost = await Promise.all(evolutionCostPromises);
       const evolutionsMap = evolutionsWithCost.reduce((acc, item) => {
         acc[item.name] = { evolution: item.evolution, cost: item.cost };
         return acc;
       }, {});
-      
-      const teamWithPokedexId = evolutionsWithCost.reduce((acc, item) => {
-        acc[item.name] = { pokedexId: item.pokedexId };
-        return acc;
-      }, {});
-
+  
       setEvolutions(evolutionsMap);
-      setMenuTeam(teamWithPokedexId);
     } catch (error) {
       console.error('Failed to fetch evolutions:', error);
     }
   };
+  
 
   const fetchPokemonsToBuy = async () => {
     const token = localStorage.getItem('token');
@@ -127,7 +116,7 @@ const HomePage = () => {
 
     try {
       const response = await fetch(`http://localhost:3000/market/pokemons`, {
-        method: 'POST',
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -154,7 +143,7 @@ const HomePage = () => {
     try {
       const response = await fetch(`http://localhost:3000/market/buy`, {
         method: 'POST',
-        headers: {
+        headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -185,14 +174,14 @@ const HomePage = () => {
       console.error('Authentication information not found');
       return;
     }
-
+  
     const pokemonName = userTeam[index];
     const evolutionInfo = evolutions[pokemonName];
     if (!evolutionInfo || !evolutionInfo.evolution) {
       alert('This Pokémon cannot evolve or evolution data is missing.');
       return;
     }
-
+  
     try {
       const evolutionCost = evolutionInfo.cost;
       if (userCoins >= evolutionCost) {
@@ -204,18 +193,18 @@ const HomePage = () => {
           },
           body: JSON.stringify({ userId, pokemonIndex: index }),
         });
-
+  
         if (!evolveResponse.ok) {
           const errorData = await evolveResponse.json();
           throw new Error(errorData.message || 'Failed to evolve Pokémon');
         }
-
+  
         const evolveData = await evolveResponse.json();
         const evolvedPokemonName = evolveData.evolvedPokemon;
-
+  
         const updatedTeam = [...userTeam];
         updatedTeam[index] = evolvedPokemonName;
-
+  
         setUserTeam(updatedTeam);
         setUserCoins(prevCoins => prevCoins - evolutionCost);
         alert(`Pokemon evolved to ${evolvedPokemonName}!`);
@@ -227,20 +216,22 @@ const HomePage = () => {
       alert(error.message);
     }
   };
-
+  
+  
+  
   const handleRemovePokemon = async (index) => {
     const confirmation = window.confirm("Are you sure you want to remove this Pokémon from your team?");
     if (!confirmation) {
       return;
     }
-
+  
     const token = localStorage.getItem('token');
     const userId = localStorage.getItem('userId');
     if (!token || !userId) {
       console.error('Authentication information not found');
       return;
     }
-
+  
     try {
       const response = await fetch(`http://localhost:3000/users/pokemon`, {
         method: 'POST',
@@ -260,6 +251,7 @@ const HomePage = () => {
       alert(error.message);
     }
   };
+  
 
   const handleStartCombat = async () => {
     const token = localStorage.getItem('token');
@@ -272,7 +264,7 @@ const HomePage = () => {
     try {
       const aiResponse = await fetch('http://localhost:3000/combat/ai-team', {
         method: 'GET',
-        headers: {
+        headers: { 
           'Authorization': `Bearer ${token}`
         }
       });
@@ -289,7 +281,7 @@ const HomePage = () => {
 
       const response = await fetch('http://localhost:3000/combat/start', {
         method: 'POST',
-        headers: {
+        headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -308,15 +300,10 @@ const HomePage = () => {
     }
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       <MenuTeam
         userTeam={userTeam}
-        menuTeam={menuTeam}
         evolutions={evolutions}
         onEvolvePokemon={handleEvolvePokemon}
         onRemovePokemon={handleRemovePokemon}
