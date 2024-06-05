@@ -1,17 +1,65 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #F5F5F5;
-  color: #333;
+.navbar {
+  background-color: #e26464;
+  width: 90px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.336));
+  border-radius: 0 10px 10px 0;
 }
 
-button {
-  background-color: #007BFF;
-  color: #FFFFFF;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar ul li {
+  padding: 20px 0;
+  width: 100%; 
+  text-align: center;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.navbar ul li .navbar-logo-image {
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  filter: drop-shadow(0 0 1px #000000);
+}
+
+.navbar ul li .navbar-image {
+  width: 35px;
+  height: 35px;
+  padding: 10px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.navbar ul li .navbar-image:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 10px #000000);
+}
+
+.main-content {
+  margin-left: 100px;
+  padding: 20px;
+}
+
+.main-content.full-width {
+  margin-left: 0;
+  padding: 0;
 }
