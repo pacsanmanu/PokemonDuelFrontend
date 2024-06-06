@@ -51,7 +51,7 @@
 
 .navbar ul li .navbar-image:hover {
   transform: scale(1.1);
-  filter: drop-shadow(0 0 10px #000000);
+  filter: drop-shadow(0 0 5px #000000ad);
 }
 
 .main-content {

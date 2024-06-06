@@ -105,7 +105,7 @@ const HomePage = () => {
         acc[item.name] = { evolution: item.evolution, cost: item.cost };
         return acc;
       }, {});
-      
+
       const teamWithPokedexId = evolutionsWithCost.reduce((acc, item) => {
         acc[item.name] = { pokedexId: item.pokedexId };
         return acc;
@@ -215,6 +215,9 @@ const HomePage = () => {
 
         const updatedTeam = [...userTeam];
         updatedTeam[index] = evolvedPokemonName;
+
+        // Fetch updated evolutions and menuTeam data for the new evolved Pokémon
+        const updatedTeamWithEvolvedPokemon = await fetchEvolutions(updatedTeam, token);
 
         setUserTeam(updatedTeam);
         setUserCoins(prevCoins => prevCoins - evolutionCost);

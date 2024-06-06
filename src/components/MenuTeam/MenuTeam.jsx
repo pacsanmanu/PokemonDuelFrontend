@@ -2,11 +2,6 @@ import React from 'react';
 import './MenuTeam.css'; // Asegúrate de crear este archivo CSS
 
 const MenuTeam = ({ userTeam, menuTeam, evolutions, onEvolvePokemon, onRemovePokemon, userCoins }) => {
-  console.log('Rendering MenuTeam');
-  console.log('userTeam:', userTeam);
-  console.log('menuTeam:', menuTeam);
-  console.log('evolutions:', evolutions);
-  console.log('userCoins:', userCoins);
 
   return (
     <div className="menu-team">
