@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import './Leaderboard.css';
 
-export default function Component() {
+export default function Leaderboard() {
   const [users, setUsers] = useState([]);
   const [sortColumn, setSortColumn] = useState("longestWinStreak");
   const [sortDirection, setSortDirection] = useState("desc");
@@ -42,13 +43,13 @@ export default function Component() {
   });
 
   return (
-    <div className="container">
-      <div className="header">
+    <div className="leaderboard-container">
+      <div className="leaderboard-header">
         <h1>Pokémon Battle Leaderboard</h1>
         <p>Check out the top players in our Pokémon battle game!</p>
       </div>
-      <div className="table-container">
-        <table>
+      <div className="leaderboard-table-container">
+        <table className="leaderboard-table">
           <thead>
             <tr>
               <th>Rank</th>
@@ -71,63 +72,9 @@ export default function Component() {
           </tbody>
         </table>
       </div>
-      <div className="button-container">
-        <button onClick={fetchUsers}>Update Data</button>
+      <div className="leaderboard-button-container">
+        <button className="leaderboard-button" onClick={fetchUsers}>Update Data</button>
       </div>
-      <style jsx>{`
-        .container {
-          max-width: 800px;
-          margin: 0 auto;
-          padding: 20px;
-          font-family: Arial, sans-serif;
-        }
-        .header {
-          text-align: center;
-          margin-bottom: 20px;
-        }
-        .header h1 {
-          font-size: 24px;
-          margin-bottom: 10px;
-        }
-        .header p {
-          color: #666;
-        }
-        .table-container {
-          overflow-x: auto;
-        }
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-bottom: 20px;
-        }
-        th,
-        td {
-          padding: 10px;
-          text-align: left;
-          border-bottom: 1px solid #ddd;
-        }
-        th {
-          cursor: pointer;
-          background-color: #f9f9f9;
-        }
-        th span {
-          margin-left: 5px;
-        }
-        .button-container {
-          text-align: right;
-        }
-        button {
-          padding: 10px 20px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        button:hover {
-          background-color: #0056b3;
-        }
-      `}</style>
     </div>
   );
 }

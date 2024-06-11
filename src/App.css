@@ -8,6 +8,7 @@
   position: fixed;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.336));
   border-radius: 0 10px 10px 0;
+  transition: transform 0.3s ease;
 }
 
 .navbar ul {
@@ -62,4 +63,31 @@
 .main-content.full-width {
   margin-left: 0;
   padding: 0;
+}
+
+/* Estilos adicionales para el toggle en dispositivos móviles */
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    transform: translateX(-100%);
+  }
+
+  .navbar.open {
+    transform: translateX(0);
+  }
+
+  .navbar-toggle {
+    display: block;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
 }
