@@ -23,7 +23,7 @@
 
 .navbar ul li {
   padding: 20px 0;
-  width: 100%; 
+  width: 100%;
   text-align: center;
 }
 
@@ -71,8 +71,18 @@
   background: none;
   border: none;
   cursor: pointer;
-  margin: 10px;
+  position: absolute;
+  top: 10px;
+  padding-left: 90%;
+  width: 12px;
+  height: 12px;
+  z-index: 1000;
 }
+
+.navbar-toggle img {
+  height: 50px;
+  width: 50px;
+} 
 
 @media (max-width: 768px) {
   .navbar {
@@ -85,6 +95,25 @@
 
   .navbar-toggle {
     display: block;
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    transform: translateX(-100%);
+  }
+
+  .navbar.open {
+    transform: translateX(0);
+  }
+
+  .navbar-toggle {
+    display: block;
+  padding-left: 83%;
   }
 
   .main-content {

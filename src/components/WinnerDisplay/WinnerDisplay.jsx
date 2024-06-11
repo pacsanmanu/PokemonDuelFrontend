@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './WinnerDisplay.css';
 
 const WinnerDisplay = ({ winner }) => {
   const navigate = useNavigate();

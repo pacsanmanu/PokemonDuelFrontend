@@ -10,6 +10,7 @@ import AuthProvider from '../AuthContext';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Navbar from '../Navbar/Navbar';
 import Leaderboard from '../Leaderboard/Leaderboard';
+import './Main.css';
 
 const Main = () => {
   const location = useLocation();
@@ -19,6 +20,12 @@ const Main = () => {
     <AuthProvider>
       <CombatProvider>
         {!isAuthPage && <Navbar />}
+        {!isAuthPage && (
+          <video autoPlay muted loop className="background-video">
+            <source src="/images/background.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
         <div className={`main-content ${isAuthPage ? 'full-width' : ''}`}>
           <Routes>
             <Route path="/" element={<AuthenticatedRoute><Lobby /></AuthenticatedRoute>} />

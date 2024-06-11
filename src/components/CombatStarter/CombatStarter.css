@@ -1,0 +1,23 @@
+.combat-starter-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.combat-starter-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.combat-starter-button img {
+  max-width: 150px;
+  height: auto;
+}
+
+.combat-starter-button img:hover {
+	filter: drop-shadow(0 0 2px #000000);
+	transition: 0.3s ease-in-out;
+	
+}

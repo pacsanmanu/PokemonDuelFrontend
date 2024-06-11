@@ -174,7 +174,7 @@ const HomePage = () => {
       }
     } catch (error) {
       console.error('Failed to buy Pokemon:', error);
-      alert(error.message);
+      alert("Not enough coins to buy the Pokemon.");
     }
   };
 

@@ -1,9 +1,9 @@
 import './Shop.css';
 
 const Shop = ({ pokemonsToBuy, onBuyPokemon }) => (
-  <div>
-    <h2>Pokemons to Buy</h2>
-    <div className="container">
+  <div className="shop-container">
+    <h2>🪙 Pokemons to Buy 🪙</h2>
+    <div className="buttons-container">
       {pokemonsToBuy.map((pokemon) => (
         <button className="buy-button" key={pokemon._id} onClick={() => onBuyPokemon(pokemon.name)}>
           <img src={`images/sprites/${pokemon.pokedexId}.gif`} alt={pokemon.name} />
