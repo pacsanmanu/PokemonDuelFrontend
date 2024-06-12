@@ -3,6 +3,8 @@
   align-items: center;
   justify-content: center;
   max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .starter-buttons-container {
@@ -13,7 +15,6 @@
   justify-content: center;
   align-items: center;
 }
-
 
 .starter-button {
   padding: 10px;
@@ -29,8 +30,8 @@
   align-items: center;
   justify-content: flex-end;
   height: 70px;
-	max-width: 150px;
-	margin-top: 50px;
+  max-width: 150px;
+  margin-top: 50px;
 }
 
 .starter-button:hover {
@@ -45,16 +46,32 @@
 
 @media only screen and (max-width: 768px) {
   .starter-buttons-container {
-    margin-top: 40px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+  .starter-button {
+    height: 100px;
+    margin-top: 30px;
   }
 }
 
 @media only screen and (max-width: 500px) {
-  .starter-button {
-    height: 100px;
+  .starter-buttons-container {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
+    gap: 15px;
   }
 
-  .starter-buttons-container {
-    margin-top: 80px;
+  .starter-button {
+    height: 90px;
+    max-width: 100px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+
+  .starter-button img {
+    max-width: 50px;
   }
 }

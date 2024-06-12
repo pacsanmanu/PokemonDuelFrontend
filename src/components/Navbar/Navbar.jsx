@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleProfile = () => {
+    navigate('/profile');
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    navigate('/login');
   };
 
   return (
@@ -16,19 +32,27 @@ const Navbar = () => {
       <nav className={`navbar ${isOpen ? 'open' : ''}`}>
         <ul>
           <li className="navbar-logo">
-            <Link to="/">
+            <a href="/">
               <img src="images/logo.webp" alt="Logo" className="navbar-logo-image" />
-            </Link>
+            </a>
           </li>
           <li className="navbar-leaderboard">
-            <Link to="/leaderboard">
+            <a href="/leaderboard">
               <img src="images/ranking.svg" alt="Leaderboard" className="navbar-image" />
-            </Link>
+            </a>
           </li>
-          <li className="navbar-user">
-            <Link to="/login">
-              <img src="images/user.svg" alt="User" className="navbar-image" />
-            </Link>
+          <li className="navbar-user" onClick={toggleDropdown}>
+            <img src="images/user.svg" alt="User" className="navbar-image" />
+            {dropdownOpen && (
+              <ul className="dropdown-menu">
+                <li>
+                  <button onClick={handleProfile}>Ver usuario</button>
+                </li>
+                <li>
+                  <button onClick={handleLogout}>Cerrar sesión</button>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </nav>

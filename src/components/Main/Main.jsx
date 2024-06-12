@@ -10,6 +10,7 @@ import AuthProvider from '../AuthContext';
 import AuthenticatedRoute from '../AuthenticatedRoute';
 import Navbar from '../Navbar/Navbar';
 import Leaderboard from '../Leaderboard/Leaderboard';
+import Profile from '../Profile/Profile';
 import './Main.css';
 
 const Main = () => {
@@ -34,6 +35,7 @@ const Main = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/starter-selection" element={<AuthenticatedRoute><StarterSelection /></AuthenticatedRoute>} />
             <Route path="/leaderboard" element={<AuthenticatedRoute><Leaderboard /></AuthenticatedRoute>} />
+            <Route path="/profile" element={<AuthenticatedRoute><Profile /></AuthenticatedRoute>} />
           </Routes>
         </div>
       </CombatProvider>

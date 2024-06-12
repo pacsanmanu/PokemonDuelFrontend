@@ -18,7 +18,7 @@ const StarterSelection = () => {
       }
 
       try {
-        const response = await fetch(`${process.env.BACKEND_URL}/pokemon/starters`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pokemon/starters`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -50,7 +50,7 @@ const StarterSelection = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/users/add-starter`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/add-starter`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

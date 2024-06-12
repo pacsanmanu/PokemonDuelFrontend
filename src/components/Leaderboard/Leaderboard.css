@@ -19,13 +19,15 @@
 }
 
 .leaderboard-header p {
-  color: #666;
+  color: #000000;
 }
 
 /* Contenedor de la tabla */
 .leaderboard-table-container {
   overflow-x: auto;
+  margin-top: 60px;
   margin-bottom: 20px;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.384));
 }
 
 /* Estilos de la tabla */
@@ -49,6 +51,10 @@
 
 .leaderboard-table th span {
   margin-left: 5px;
+}
+
+tr{
+  background-color: white;
 }
 
 /* Contenedor de los botones */

@@ -40,7 +40,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/users/me`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/me`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -66,7 +66,7 @@ const HomePage = () => {
     if (!team.length) return;
 
     try {
-      const evolutionResponse = await fetch(`${process.env.BACKEND_URL}/pokemon/by-names`, {
+      const evolutionResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pokemon/by-names`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ const HomePage = () => {
 
       const evolutionCostPromises = evolutionsData.map(pokemon => {
         if (pokemon.evolution) {
-          return fetch(`${process.env.BACKEND_URL}/pokemon/evolution-cost`, {
+          return fetch(`${process.env.REACT_APP_BACKEND_URL}/pokemon/evolution-cost`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/market/pokemons`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/market/pokemons`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/market/buy`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/market/buy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -196,7 +196,7 @@ const HomePage = () => {
     try {
       const evolutionCost = evolutionInfo.cost;
       if (userCoins >= evolutionCost) {
-        const evolveResponse = await fetch(`${process.env.BACKEND_URL}/pokemon/evolve`, {
+        const evolveResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/pokemon/evolve`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -245,7 +245,7 @@ const HomePage = () => {
     }
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/users/pokemon`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/pokemon`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -273,7 +273,7 @@ const HomePage = () => {
     }
 
     try {
-      const aiResponse = await fetch(`${process.env.BACKEND_URL}/combat/ai-team`, {
+      const aiResponse = await fetch(`${process.env.REACT_APP_BACKEND_URL}/combat/ai-team`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -290,7 +290,7 @@ const HomePage = () => {
         ai: aiTeam
       });
 
-      const response = await fetch(`${process.env.BACKEND_URL}/combat/start`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/combat/start`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

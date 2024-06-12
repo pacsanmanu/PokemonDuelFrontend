@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/validate-token`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/validate-token`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

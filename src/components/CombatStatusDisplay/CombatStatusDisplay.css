@@ -1,15 +1,30 @@
+/* Contenedor para centrar el componente */
+.combat-status-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 10px; /* Para asegurar que está al final */
+}
+
+/* Estilo del componente .combat-status */
 .combat-status {
-  height: 500px;
+  height: 200px;
   overflow-y: auto;
-  width: 20%;
-  position: fixed;
-  right: 0;
-  top: 20%;
-  background-color: #f9f9f9;
+  width: 800px;
+  background-color: #f9f9f991;
   padding: 10px;
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
   z-index: 100;
   font-family: 'Arial', sans-serif;
+}
+
+.combat-status h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
 }
 
 .combat-status p {
@@ -21,4 +36,28 @@
   border-radius: 4px;
   font-size: 14px;
   line-height: 1.5;
+}
+
+.log-title {
+  text-align: center;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .combat-status {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    box-shadow: none;
+  }
+
+  .combat-status h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+
+  .combat-status p {
+    font-size: 12px;
+    padding: 6px;
+  }
 }

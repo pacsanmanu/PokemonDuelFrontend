@@ -11,7 +11,7 @@ export default function Leaderboard() {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`${process.env.BACKEND_URL}/users/ranking`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/users/ranking`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,17 +1,17 @@
 .pokemon-details {
-	min-height: 320px;
+  min-height: 320px;
   min-width: 350px;
-	background-color: #FFFFFF;
-	border: 1px solid #e0e0e0;
-	border-radius: 10px;
-	padding: 20px;
-	margin: 10px;
-	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-	transition: box-shadow 0.3s ease-in-out;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	align-items: center;
+  background-color: #FFFFFF;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .pokemon-details:hover {
@@ -21,11 +21,10 @@
 .pokemon-details img {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
   max-height: 150px;
-  width: auto; 
+  width: auto;
   height: auto;
   object-fit: contain;
 }
-
 
 .pokemon-details h2 {
   margin: 1.2em 0;
@@ -35,6 +34,13 @@
 .pokemon-details p {
   margin: 0;
   font-weight: bold;
+}
+
+.pokemon-move-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 /* Estilos para los botones de movimiento basados en el tipo de Pokémon */
@@ -57,13 +63,6 @@
 .type-steel { background-color: #B7B7CE; color: #1C1C1C; }
 .type-fairy { background-color: #D685AD; color: #272727; }
 
-.pokemon-move-container {
-  display: flex;
-  flex-wrap: wrap; /* Permite que los elementos se ajusten en varias líneas si no caben */
-  justify-content: center; /* Centra los botones en el contenedor si hay espacio adicional */
-  gap: 10px; /* Espacio entre los botones */
-}
-
 .pokemon-move-button {
   padding: 10px;
   margin: 5px;
@@ -79,14 +78,40 @@
 }
 
 .health-bar-container {
-  width: 100%; /* O cualquier anchura específica que desees */
-  background-color: #eee; /* Color de fondo para la parte "vacía" de la barra de salud */
+  width: 100%;
+  background-color: #eee;
   border-radius: 8px;
-  overflow: hidden; /* Mantiene todo dentro de los bordes redondeados */
+  overflow: hidden;
 }
 
 .health-bar {
-  height: 8px; /* Ajusta según necesites */
-  background-color: #4CAF50; /* Color de la barra de salud */
-  border-radius: 8px; /* Opcional, si quieres bordes redondeados */
+  height: 8px;
+  background-color: #4CAF50;
+  border-radius: 8px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .pokemon-details {
+    min-width: auto;
+    width: 350px; /* Ajustado para móviles */
+    padding: 10px;
+    margin: 5px;
+    min-height: 200px;
+  }
+
+  .pokemon-details img {
+    max-height: 80px; /* Reducido para móviles */
+  }
+
+  .pokemon-details h2 {
+    margin: 0.8em 0;
+    font-size: 1em; /* Reducido para móviles */
+  }
+
+  .pokemon-move-button {
+    padding: 8px;
+    margin: 4px;
+    font-size: 0.8em; /* Reducido para móviles */
+  }
 }

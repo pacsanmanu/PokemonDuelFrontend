@@ -83,7 +83,48 @@
 .navbar-toggle img {
   height: 50px;
   width: 50px;
-} 
+}
+
+/* Estilos para el menú desplegable */
+.navbar-user {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 70px; /* Ajusta según sea necesario */
+  right: 0;
+  left: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  width: 150px; /* Ajusta según sea necesario */
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu li a,
+.dropdown-menu li button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  text-align: left;
+  text-decoration: none;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu li a:hover,
+.dropdown-menu li button:hover {
+  background-color: #e26464;
+  color: white;
+}
 
 @media (max-width: 768px) {
   .navbar {
@@ -100,6 +141,32 @@
 
   .main-content {
     margin-left: 0;
+  }
+
+  /* Aumentar el tamaño de los elementos en dispositivos móviles */
+  .navbar ul li .navbar-logo-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .navbar ul li .navbar-image {
+    width: 45px;
+    height: 45px;
+  }
+
+  .navbar-toggle img {
+    height: 60px;
+    width: 60px;
+  }
+
+  /* Ajustes para dropdown-menu en dispositivos móviles */
+  .dropdown-menu {
+    width: 200px; /* Ajusta según sea necesario */
+  }
+
+  .dropdown-menu li a,
+  .dropdown-menu li button {
+    padding: 15px; /* Ajusta según sea necesario */
   }
 }
 
@@ -119,5 +186,31 @@
 
   .main-content {
     margin-left: 0;
+  }
+
+  /* Aumentar aún más el tamaño de los elementos en pantallas más pequeñas */
+  .navbar ul li .navbar-logo-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .navbar ul li .navbar-image {
+    width: 55px;
+    height: 55px;
+  }
+
+  .navbar-toggle img {
+    height: 70px;
+    width: 70px;
+  }
+
+  /* Ajustes para dropdown-menu en pantallas más pequeñas */
+  .dropdown-menu {
+    width: 250px; /* Ajusta según sea necesario */
+  }
+
+  .dropdown-menu li a,
+  .dropdown-menu li button {
+    padding: 20px; /* Ajusta según sea necesario */
   }
 }

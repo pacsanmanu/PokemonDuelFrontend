@@ -46,7 +46,7 @@ const BattleArena = () => {
 
   const handleAttack = async (moveIndex) => {
     try {
-      const response = await fetch(`${process.env.BACKEND_URL}/combat/attack`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/combat/attack`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const BattleArena = () => {
       if (combatState.userStatus && combatState.userStatus.stats.life <= 0) {
         forcedChange = true;
       }
-      const response = await fetch(`${process.env.BACKEND_URL}/combat/change`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/combat/change`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ const BattleArena = () => {
     const deleteCombat = async () => {
       if (combatState.winner) {
         try {
-          const response = await fetch(`${process.env.BACKEND_URL}/combat`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/combat`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',

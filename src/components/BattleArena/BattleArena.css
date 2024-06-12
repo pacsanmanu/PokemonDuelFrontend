@@ -24,3 +24,27 @@
 .user-pokemon {
   transform: scaleX(-1);
 }
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .battle-arena {
+    margin-top: 20px;
+  }
+
+  .arena-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pokemon-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .combat-status {
+    width: 100%;
+    position: static;
+    height: auto;
+    margin-top: 20px;
+  }
+}
