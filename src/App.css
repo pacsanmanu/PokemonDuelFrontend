@@ -9,6 +9,7 @@
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.336));
   border-radius: 0 10px 10px 0;
   transition: transform 0.3s ease;
+  z-index: 10000;
 }
 
 .navbar ul {
@@ -113,7 +114,7 @@
 
   .navbar-toggle {
     display: block;
-  padding-left: 83%;
+    padding-left: 83%;
   }
 
   .main-content {

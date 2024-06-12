@@ -60,6 +60,4 @@ const PokemonDetails = ({ role, pokemon, onAttack }) => {
   );
 };
 
-
-
 export default PokemonDetails;

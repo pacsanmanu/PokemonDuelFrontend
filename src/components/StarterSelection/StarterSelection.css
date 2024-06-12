@@ -1,0 +1,60 @@
+.starter-selection-container {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+}
+
+.starter-buttons-container {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.starter-button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 70px;
+	max-width: 150px;
+	margin-top: 50px;
+}
+
+.starter-button:hover {
+  background-color: #ffc6c6;
+  filter: drop-shadow(0 0 3px #000000a4);
+}
+
+.starter-button img {
+  margin-bottom: 10px;
+  max-width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .starter-buttons-container {
+    margin-top: 40px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .starter-button {
+    height: 100px;
+  }
+
+  .starter-buttons-container {
+    margin-top: 80px;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './StarterSelection.css';
 
 const StarterSelection = () => {
   const [starterPokemons, setStarterPokemons] = useState([]);
@@ -17,7 +18,7 @@ const StarterSelection = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:3000/pokemon/starters', {
+        const response = await fetch(`${process.env.BACKEND_URL}/pokemon/starters`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -49,7 +50,7 @@ const StarterSelection = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/users/add-starter', {
+      const response = await fetch(`${process.env.BACKEND_URL}/users/add-starter`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,13 +80,16 @@ const StarterSelection = () => {
   }
 
   return (
-    <div>
+    <div className="starter-selection-container">
       <h1>Select Your Starter Pokémon</h1>
-      {starterPokemons.map(pokemon => (
-        <button key={pokemon.name} onClick={() => handleSelectStarter(pokemon.name)}>
-          {pokemon.name}
-        </button>
-      ))}
+      <div className="starter-buttons-container">
+        {starterPokemons.map(pokemon => (
+          <button className="starter-button" key={pokemon.name} onClick={() => handleSelectStarter(pokemon.name)}>
+            <img src={`images/sprites/${pokemon.pokedexId}.gif`} alt={pokemon.name} />
+            <div>{pokemon.name}</div>
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
