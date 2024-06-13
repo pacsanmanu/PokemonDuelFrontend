@@ -36,7 +36,12 @@ export default function Leaderboard() {
     }
   };
 
-  const sortedUsers = [...users].sort((a, b) => {
+  const rankedUsers = users
+    .slice()
+    .sort((a, b) => b.longestWinStreak - a.longestWinStreak)
+    .map((user, index) => ({ ...user, rank: index + 1 }));
+
+  const sortedUsers = rankedUsers.sort((a, b) => {
     if (a[sortColumn] < b[sortColumn]) return sortDirection === "asc" ? -1 : 1;
     if (a[sortColumn] > b[sortColumn]) return sortDirection === "asc" ? 1 : -1;
     return 0;
@@ -62,10 +67,10 @@ export default function Leaderboard() {
             </tr>
           </thead>
           <tbody>
-            {sortedUsers.map((user, index) => (
+            {sortedUsers.map((user) => (
               <tr key={user.username}>
-                <td>{index + 1}</td>
-                <td>{user.username}</td>
+                <td>{user.rank}</td>
+                <td>{user.rank === 1 ? `${user.username} 👑` : user.username}</td>
                 <td>{user.longestWinStreak}</td>
               </tr>
             ))}
