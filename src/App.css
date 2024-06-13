@@ -1,3 +1,7 @@
+*{
+  font-family: 'Arial';
+}
+
 .navbar {
   background-color: #e26464;
   width: 90px;
