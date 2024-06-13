@@ -1,0 +1,112 @@
+/* Register.css */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.register-container {
+  display: flex;
+  height: 100vh;
+}
+
+.register-image {
+  flex: 1.7;
+  background-image: url('../../../public/images/register.webp'); /* Actualiza con la ruta de tu imagen */
+  background-size: cover;
+  background-position: center;
+  filter: drop-shadow(3px 0px 15px #000000a2);
+}
+
+.register-form-container {
+  flex: 1.3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F7AB68; /* Fondo negro con transparencia */
+}
+
+.register-form {
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con ligera transparencia */
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  margin: 10px; /* Ajuste para mayor consistencia */
+}
+
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.register-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.register-form input {
+  width: calc(100% - 30px); /* Restar el margen derecho */
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  margin-right: 10px; /* Añadir margen derecho */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.2); /* Fondo con transparencia */
+}
+
+.register-form input::placeholder {
+  color: #ccc; /* Color gris claro para el placeholder */
+}
+
+.register-form button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #ff5722; /* Botón naranja */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.register-form button:hover {
+  background-color: #b63b15;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .register-container {
+    justify-content: center;
+    align-items: center;
+    background: url('../../../public/images/register.webp') no-repeat center center; /* Imagen de fondo */
+    background-size: cover;
+  }
+  .register-image {
+    display: none; /* Oculta la imagen adicional */
+  }
+  .register-form-container {
+    margin-right: 0; /* Elimina la separación para dispositivos móviles */
+    background-color: rgba(255, 255, 255, 0); /* Fondo blanco con ligera transparencia */
+    color: #333;
+    max-width: 90%; /* Asegura que el formulario no ocupe todo el ancho */
+  }
+  .register-form {
+    color: #333;
+    background-color: rgb(255, 255, 255); /* Fondo blanco con ligera transparencia */
+  }
+  .register-form label, .register-form input, .register-form button {
+    color: #333; /* Ajusta el color del texto a un gris oscuro */
+  }
+}

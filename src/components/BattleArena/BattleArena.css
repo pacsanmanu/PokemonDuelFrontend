@@ -1,0 +1,50 @@
+.battle-arena {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+.arena-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.pokemon-container {
+  flex: 1;
+  text-align: center;
+}
+
+.user-pokemon {
+  transform: scaleX(-1);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .battle-arena {
+    margin-top: 20px;
+  }
+
+  .arena-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pokemon-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .combat-status {
+    width: 100%;
+    position: static;
+    height: auto;
+    margin-top: 20px;
+  }
+}

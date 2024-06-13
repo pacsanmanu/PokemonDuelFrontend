@@ -1,0 +1,95 @@
+.menu-team h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.team-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; 
+}
+
+.team-item {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pokemon-image-container {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.pokemon-image {
+  width: auto;
+  height: auto;
+}
+
+.pokemon-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px; 
+}
+
+.pokemon-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.evolve-button, .remove-button {
+  width: 100%;
+  padding: 5px;
+  background-color: #ffffff;
+  color: #000;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.evolve-button:hover {
+  background-color: #ffc6c6;
+  box-shadow: 0 0 3px #000000a4;
+}
+
+.remove-button {
+  background-color: #ff4d4d;
+  color: #ffffff;
+  margin-top: auto;
+}
+
+.remove-button:hover {
+  background-color: #d41f1f;
+  box-shadow: 0 0 3px #000000a4;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 500px) {
+  .team-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .team-item {
+    width: 140px; /* Ajusta este valor para disminuir el ancho */
+  }
+}

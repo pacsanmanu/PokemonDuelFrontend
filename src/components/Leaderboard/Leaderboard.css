@@ -1,0 +1,106 @@
+/* Contenedor principal */
+.leaderboard-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: block;
+}
+
+/* Encabezado */
+.leaderboard-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.leaderboard-header h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.leaderboard-header p {
+  color: #000000;
+}
+
+/* Contenedor de la tabla */
+.leaderboard-table-container {
+  overflow-x: auto;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.384));
+}
+
+/* Estilos de la tabla */
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard-table th {
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.leaderboard-table th span {
+  margin-left: 5px;
+}
+
+tr{
+  background-color: white;
+}
+
+/* Contenedor de los botones */
+.leaderboard-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Botones específicos */
+.leaderboard-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.leaderboard-button:hover {
+  background-color: #0056b3;
+}
+
+/* Diseño responsive */
+@media (max-width: 768px) {
+  .leaderboard-container {
+    padding: 10px;
+  }
+
+  .leaderboard-header h1 {
+    font-size: 28px;
+  }
+
+  .leaderboard-header p {
+    font-size: 18px;
+  }
+
+  .leaderboard-table,
+  .leaderboard-table th,
+  .leaderboard-table td {
+    font-size: 18px;
+    padding: 15px;
+  }
+
+  .leaderboard-button {
+    width: 100%;
+    padding: 20px 0;
+    font-size: 18px;
+  }
+}

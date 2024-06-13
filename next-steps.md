@@ -1,0 +1,1 @@
+- Show price for selling each Pokemon
