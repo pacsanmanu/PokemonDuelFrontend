@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+### Pokémon Duel!
+![Logo de la app](../frontend/public/images/logo.webp){: width="500px"}
+El entorno cliente de este proyecto está diseñado para proporcionar una interfaz de usuario interactiva y responsiva que facilita la gestión y visualización de datos relacionados con batallas de Pokémon. Las funcionalidades clave incluyen:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- **Autenticación de usuarios:** Permite a los usuarios registrarse e iniciar sesión para acceder a sus perfiles personalizados.
+- **Gestión de equipos de Pokémon:** Los usuarios pueden modificar, evolucionar y eliminar Pokémon de su equipo, seleccionando entre una variedad de Pokémon disponibles.
+- **Iniciación de combates:** Los usuarios pueden iniciar combates contra otros equipos, que se gestionan a través de la lógica implementada en el servidor.
+- **Visualización de resultados y estadísticas:** Después de cada combate, los usuarios pueden ver resultados detallados y seguir el progreso de sus equipos a lo largo del tiempo.
 
-## Available Scripts
+![Imagen de los iniciales](../frontend/public/images/documentation/image1.png)
 
-In the project directory, you can run:
+#### Descripción de la estructura
+La estructura del front-end se organiza de la siguiente manera:
 
-### `npm start`
+- **Componentes:** Utiliza un enfoque basado en componentes (React.js) para construir una interfaz de usuario modular y reutilizable. Cada componente maneja una parte específica de la funcionalidad de la aplicación, como formularios de autenticación, listas de Pokémon, y paneles de resultados de combates.
+- **Estilos:** Se utiliza CSS para gestionar los estilos de la aplicación, asegurando que la interfaz sea visualmente atractiva y coherente en diferentes dispositivos y resoluciones de pantalla.
+- **Rutas:** Se emplea React Router para manejar la navegación dentro de la aplicación, permitiendo a los usuarios navegar entre diferentes vistas (por ejemplo, página de inicio, login, resultados de combates) sin recargar la página.
 
-Runs the app in the development mode.\
-Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
+Esta estructura está diseñada para ser escalable y fácil de mantener, con una clara separación de preocupaciones entre la lógica de la interfaz de usuario, la gestión de estado, y la comunicación con el back-end.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<b>El frontend está desplegado [aquí.](https://pkmnduel.vercel.app/)</b>
