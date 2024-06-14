@@ -1,5 +1,6 @@
 ### Pokémon Duel!
-![Logo de la app](public/images/logo.webp){: width="500px"}
+<img src="public/images/logo.webp" alt="Logo de la app" width="400px">
+
 El entorno cliente de este proyecto está diseñado para proporcionar una interfaz de usuario interactiva y responsiva que facilita la gestión y visualización de datos relacionados con batallas de Pokémon. Las funcionalidades clave incluyen:
 
 - **Autenticación de usuarios:** Permite a los usuarios registrarse e iniciar sesión para acceder a sus perfiles personalizados.
