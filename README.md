@@ -1,5 +1,5 @@
 ### Pokémon Duel!
-![Logo de la app](../frontend/public/images/logo.webp){: width="500px"}
+![Logo de la app](public/images/logo.webp){: width="500px"}
 El entorno cliente de este proyecto está diseñado para proporcionar una interfaz de usuario interactiva y responsiva que facilita la gestión y visualización de datos relacionados con batallas de Pokémon. Las funcionalidades clave incluyen:
 
 - **Autenticación de usuarios:** Permite a los usuarios registrarse e iniciar sesión para acceder a sus perfiles personalizados.
@@ -7,7 +7,7 @@ El entorno cliente de este proyecto está diseñado para proporcionar una interf
 - **Iniciación de combates:** Los usuarios pueden iniciar combates contra otros equipos, que se gestionan a través de la lógica implementada en el servidor.
 - **Visualización de resultados y estadísticas:** Después de cada combate, los usuarios pueden ver resultados detallados y seguir el progreso de sus equipos a lo largo del tiempo.
 
-![Imagen de los iniciales](../frontend/public/images/documentation/image1.png)
+![Imagen de los iniciales](public/images/documentation/image1.png)
 
 #### Descripción de la estructura
 La estructura del front-end se organiza de la siguiente manera:
